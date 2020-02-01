@@ -14,7 +14,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (strong, nonatomic, nullable) NSString *title;
 @property (strong, nonatomic, nullable) NSString *author;
-@property (strong, nonatomic, nullable) NSString *date;
+@property (strong, nonatomic, nullable) NSString *name;
+@property (strong, nonatomic, nullable) NSString *publishedAt;
+@property (strong, nonatomic, nullable) NSString *urlToImage;
 //@property (strong, nonatomic, nullable) NSString *url;
 //@property (strong, nonatomic, nullable) NSString *urlToImage;
 //@property (strong, nonatomic, nullable) NSString *publishedAt;
