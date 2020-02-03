@@ -16,7 +16,6 @@
 #import "NetworkManager.h"
 #import <AFNetworking/AFNetworking.h>
 
-
 @interface NewsList () <UITableViewDelegate, UITableViewDataSource, SFSafariViewControllerDelegate, NewsCellDelegate>
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
@@ -26,6 +25,8 @@
 
 @property (strong, nonatomic) UIActivityIndicatorView *waiter;
 @property (strong, nonatomic) UIView *placeholder;
+
+@property (assign, nonatomic) BOOL isAlertShowing;
 
 @end
 
@@ -41,7 +42,7 @@
 
 - (void)setupViews {
     
-    self.navigationItem.titleView = [self createTitleViewWithTitle:self.title];
+    self.navigationItem.titleView = [self createTitleViewWithTitle:self.newsListTitle];
     self.navigationItem.rightBarButtonItem = [self createSortButtonItem];
     
     NSString *cellId = NSStringFromClass([NewsCell class]);
@@ -82,6 +83,21 @@
     return barButton;
 }
 
+- (void)showBasicErrorAlert:(NSString *)message {
+    if (self.isAlertShowing) {
+        return;
+    }
+    
+    self.isAlertShowing = YES;
+    
+    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:nil message:message delegate:self cancelButtonTitle:@"Ок" otherButtonTitles:nil];
+    [alertView show];
+}
+
+- (void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex {
+    self.isAlertShowing = NO;
+}
+
 - (void) refreshButtonPressed{
     [self fetchData:self.url];
 }
@@ -111,6 +127,18 @@
         
         self.placeholder.backgroundColor = [UIColor colorWithRed:26./255 green:26./255 blue:26./255 alpha:1.];
 
+    }
+    [self.view addSubview:self.placeholder];
+    [self.placeholder autoPinEdgesToSuperviewEdges];
+    [self.view layoutIfNeeded];
+}
+
+- (void)showPlaceholderTest {
+    if (!self.placeholder) {
+        self.placeholder = [UIView new];
+        
+        self.placeholder.backgroundColor = [UIColor greenColor];
+        
     }
     [self.view addSubview:self.placeholder];
     [self.placeholder autoPinEdgesToSuperviewEdges];
@@ -160,6 +188,7 @@
 #pragma mark - NewsCellDelegate
 
 - (void)updateCellConstraints:(NewsModel *) newsModel{
+    long index = [self.newsList indexOfObject:newsModel];
     dispatch_async(dispatch_get_main_queue(), ^{
         [self.tableView reloadData];
     });
@@ -181,6 +210,9 @@
         
         if (error) {
             NSLog(@"Error: %@", error);
+            [self showBasicErrorAlert:@"Internet access is required for the application to work"];
+            [self hideWaiter];
+            
         } else {
             NSLog(@"%@ %@", response, responseObject);
             self.articlesFromJSON = [responseObject valueForKey:@"articles"];

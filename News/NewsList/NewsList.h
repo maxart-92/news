@@ -13,7 +13,7 @@ NS_ASSUME_NONNULL_BEGIN
 @interface NewsList : UIViewController
 
 @property (strong, nonatomic) NSString *url;
-@property (strong, nonatomic) NSString *title;
+@property (strong, nonatomic) NSString *newsListTitle;
 
 @end
 

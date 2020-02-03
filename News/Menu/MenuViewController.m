@@ -66,9 +66,11 @@
    
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"NewsList" bundle:nil];
     NewsList *newsList = (NewsList *)[storyboard instantiateViewControllerWithIdentifier:NSStringFromClass([NewsList class])];
-    newsList.title = [self.newsTypes[indexPath.row] objectForKey:@"type"];
+    newsList.newsListTitle = [self.newsTypes[indexPath.row] objectForKey:@"type"];
     newsList.url = [self.newsTypes[indexPath.row] objectForKey:@"url"];
     [self.navigationController pushViewController:newsList animated:YES];
     
     }
+
+
 @end

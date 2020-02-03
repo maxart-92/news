@@ -89,7 +89,7 @@
                                             [self.infoTopConstraint autoRemove];
                                             self.infoTopConstraint = [self.infoStackView autoPinEdge:ALEdgeTop toEdge:ALEdgeTop ofView:self.infoStackView.superview withOffset:10];
                                             self.previewImage.hidden = true;
-                                            [self.delegate updateCellConstraints:self.newsItem];
+                                            //[self.delegate updateCellConstraints:self.newsItem];
                                         }
                                     }];
     } @catch (NSException *exception) {
@@ -103,19 +103,5 @@
 - (void)setUpImageSize:(UIImage *)image{
     [self.previewImage autoMatchDimension:ALDimensionHeight toDimension:ALDimensionWidth ofView:self.previewImage withMultiplier:image.size.height/image.size.width];
 }
-/*
--(void) updateFieldsViewBottomConstraint{
-    if (self.mortageProgram.additionalOffers>0){
-        self.mortageMoreStackView.hidden = false;
-        [self setButtonText];
-        [self setButtonImg];
-        [self.fieldsViewBottomConstraint autoRemove];
-        self.fieldsViewBottomConstraint = [self.mortageMoreStackView autoPinEdge:ALEdgeTop toEdge:ALEdgeBottom ofView:self.fieldsView withOffset:20];
-    } else {
-        self.mortageMoreStackView.hidden = true;
-        [self.fieldsViewBottomConstraint autoRemove];
-        self.fieldsViewBottomConstraint = [self.fieldsView autoPinEdge:ALEdgeBottom toEdge:ALEdgeBottom ofView:self.fieldsView.superview withOffset:15];
-    }
-}
-*/
+
 @end
