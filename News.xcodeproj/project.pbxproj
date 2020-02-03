@@ -8,6 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		27ECD556E6D972DEFD8EF539 /* Pods_News.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2DCEE16C64D16BC2B12A15E9 /* Pods_News.framework */; };
+		672F205523E8152400911C28 /* MenuViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 672F205423E8152400911C28 /* MenuViewController.m */; };
+		672F205723E8153900911C28 /* Menu.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 672F205623E8153900911C28 /* Menu.storyboard */; };
+		672F205B23E819F300911C28 /* MenuCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 672F205A23E819F300911C28 /* MenuCell.m */; };
 		C2D38CF923E2CE6E00E69AFD /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = C2D38CF823E2CE6E00E69AFD /* AppDelegate.m */; };
 		C2D38D0123E2CE7000E69AFD /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C2D38D0023E2CE7000E69AFD /* Assets.xcassets */; };
 		C2D38D0423E2CE7000E69AFD /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C2D38D0223E2CE7000E69AFD /* LaunchScreen.storyboard */; };
@@ -25,6 +28,11 @@
 		2DCEE16C64D16BC2B12A15E9 /* Pods_News.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_News.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		431F1B1435ACCE2BDDF9E86E /* Pods-News.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-News.debug.xcconfig"; path = "Target Support Files/Pods-News/Pods-News.debug.xcconfig"; sourceTree = "<group>"; };
 		591BE2712D5428F39D1885F4 /* Pods-News.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-News.release.xcconfig"; path = "Target Support Files/Pods-News/Pods-News.release.xcconfig"; sourceTree = "<group>"; };
+		672F205323E8152400911C28 /* MenuViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MenuViewController.h; sourceTree = "<group>"; };
+		672F205423E8152400911C28 /* MenuViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MenuViewController.m; sourceTree = "<group>"; };
+		672F205623E8153900911C28 /* Menu.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Menu.storyboard; sourceTree = "<group>"; };
+		672F205923E819F300911C28 /* MenuCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MenuCell.h; sourceTree = "<group>"; };
+		672F205A23E819F300911C28 /* MenuCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MenuCell.m; sourceTree = "<group>"; };
 		C2D38CF423E2CE6E00E69AFD /* News.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = News.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C2D38CF723E2CE6E00E69AFD /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		C2D38CF823E2CE6E00E69AFD /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -58,6 +66,18 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		672F205823E8154C00911C28 /* Menu */ = {
+			isa = PBXGroup;
+			children = (
+				672F205323E8152400911C28 /* MenuViewController.h */,
+				672F205423E8152400911C28 /* MenuViewController.m */,
+				672F205623E8153900911C28 /* Menu.storyboard */,
+				672F205923E819F300911C28 /* MenuCell.h */,
+				672F205A23E819F300911C28 /* MenuCell.m */,
+			);
+			path = Menu;
+			sourceTree = "<group>";
+		};
 		6849C0F53220AB50F218CA15 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -87,6 +107,7 @@
 		C2D38CF623E2CE6E00E69AFD /* News */ = {
 			isa = PBXGroup;
 			children = (
+				672F205823E8154C00911C28 /* Menu */,
 				C2D38D1723E2D14000E69AFD /* NewsList */,
 				C2D38D4223E2FE7300E69AFD /* Model */,
 				C2D38CF723E2CE6E00E69AFD /* AppDelegate.h */,
@@ -193,6 +214,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				672F205723E8153900911C28 /* Menu.storyboard in Resources */,
 				C2D38D1423E2D0E800E69AFD /* NewsCell.xib in Resources */,
 				C2D38D0423E2CE7000E69AFD /* LaunchScreen.storyboard in Resources */,
 				C2D38D0123E2CE7000E69AFD /* Assets.xcassets in Resources */,
@@ -252,7 +274,9 @@
 				C2D38D4B23E42A1200E69AFD /* THSHTTPCommunication.m in Sources */,
 				C2D38D4523E2FEA900E69AFD /* NewsModel.m in Sources */,
 				C2D38D0723E2CE7000E69AFD /* main.m in Sources */,
+				672F205523E8152400911C28 /* MenuViewController.m in Sources */,
 				C2D38D1323E2D0E800E69AFD /* NewsCell.m in Sources */,
+				672F205B23E819F300911C28 /* MenuCell.m in Sources */,
 				C2D38D1A23E2D26000E69AFD /* NewsList.m in Sources */,
 				C2D38D4823E4176F00E69AFD /* NetworkManager.m in Sources */,
 				C2D38CF923E2CE6E00E69AFD /* AppDelegate.m in Sources */,

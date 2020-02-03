@@ -11,6 +11,7 @@
 #import "NewsModel.h"
 #import "SafariServices/SafariServices.h"
 #import "THSHTTPCommunication.h"
+#import "PureLayout.h"
 
 #import "NetworkManager.h"
 #import <AFNetworking/AFNetworking.h>
@@ -23,6 +24,9 @@
 @property (strong, nonatomic) NSArray *articlesFromJSON;
 @property (strong, nonatomic) NSMutableArray<NewsModel *> *newsList;
 
+@property (strong, nonatomic) UIActivityIndicatorView *waiter;
+@property (strong, nonatomic) UIView *placeholder;
+
 @end
 
 @implementation NewsList
@@ -32,10 +36,13 @@
     
     [self setupViews];
   
-    [self fetchData];
+    [self fetchData:self.url];
 }
 
 - (void)setupViews {
+    
+    self.navigationItem.titleView = [self createTitleViewWithTitle:self.title];
+    self.navigationItem.rightBarButtonItem = [self createSortButtonItem];
     
     NSString *cellId = NSStringFromClass([NewsCell class]);
     [self.tableView registerNib:[UINib nibWithNibName:cellId bundle:nil] forCellReuseIdentifier:cellId];
@@ -45,6 +52,73 @@
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
     self.tableView.tableFooterView = [UIView new];
+}
+
+- (UIView *)createTitleViewWithTitle:(NSString *)title{
+    
+    UIView *view = [UIView new];
+    CGFloat availableWidth = self.view.frame.size.width - 140;
+    
+    UILabel *label = [UILabel new];
+    label.font = [UIFont systemFontOfSize:18 weight:UIFontWeightSemibold];
+    label.textColor = [UIColor blackColor];
+    label.text = title;
+    [label sizeToFit];
+    
+    [view addSubview:label];
+    
+    CGFloat maxWidth = fmin(label.frame.size.width, availableWidth);
+    
+    label.frame = CGRectMake(fmax(0, (maxWidth - label.frame.size.width) / 2.0), 0, fmin(label.frame.size.width, maxWidth), label.frame.size.height);
+    
+    view.frame = CGRectMake(0, 0, maxWidth, label.frame.size.height);
+    
+    return view;
+}
+
+- (UIBarButtonItem *)createSortButtonItem {
+    UIBarButtonItem *barButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemRefresh target:self action:@selector(refreshButtonPressed)];
+    
+    return barButton;
+}
+
+- (void) refreshButtonPressed{
+    [self fetchData:self.url];
+}
+
+#pragma mark - waiter, placeholder
+
+- (void)showWaiter {
+    if (!self.waiter) {
+        self.waiter = [[UIActivityIndicatorView alloc] init];
+        self.waiter.activityIndicatorViewStyle = UIActivityIndicatorViewStyleWhiteLarge;
+        self.waiter.color = [UIColor colorWithRed:255./255 green:126./255 blue:121./255 alpha:1.];
+    }
+    
+    [self.view addSubview:self.waiter];
+    [self.waiter autoCenterInSuperview];
+    [self.waiter startAnimating];
+}
+
+- (void)hideWaiter {
+    [self.waiter stopAnimating];
+    [self.waiter removeFromSuperview];
+}
+
+- (void)showPlaceholder {
+    if (!self.placeholder) {
+        self.placeholder = [UIView new];
+        
+        self.placeholder.backgroundColor = [UIColor colorWithRed:26./255 green:26./255 blue:26./255 alpha:1.];
+
+    }
+    [self.view addSubview:self.placeholder];
+    [self.placeholder autoPinEdgesToSuperviewEdges];
+    [self.view layoutIfNeeded];
+}
+
+- (void)hidePlaceholder {
+    [self.placeholder removeFromSuperview];
 }
 
 #pragma mark - UITableViewDelegate, UITableViewDataSource
@@ -93,11 +167,14 @@
 
 #pragma mark - Data
 
-- (void) fetchData {
+- (void) fetchData: (NSString *) url {
     NSURLSessionConfiguration *configuration = [NSURLSessionConfiguration defaultSessionConfiguration];
     AFURLSessionManager *manager = [[AFURLSessionManager alloc] initWithSessionConfiguration:configuration];
     
-    NSURL *URL = [NSURL URLWithString:@"https://newsapi.org/v2/top-headlines?country=us&category=business&apiKey=f67e648fe5aa474d9f346ddd1cabdda0"];
+    [self showPlaceholder];
+    [self showWaiter];
+    
+    NSURL *URL = [NSURL URLWithString:url];
     NSURLRequest *request = [NSURLRequest requestWithURL:URL];
     
     NSURLSessionDataTask *dataTask = [manager dataTaskWithRequest:request completionHandler:^(NSURLResponse *response, id responseObject, NSError *error) {
@@ -111,6 +188,8 @@
             dispatch_async(dispatch_get_main_queue(), ^{
                 [self.tableView reloadData];
             });
+            [self hideWaiter];
+            [self hidePlaceholder];
         }
     }];
     [dataTask resume];
