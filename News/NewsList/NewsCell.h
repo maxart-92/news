@@ -11,7 +11,15 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+@protocol NewsCellDelegate <NSObject>
+
+- (void)updateCellConstraints:(NewsModel *)newsModel;
+
+@end
+
 @interface NewsCell : UITableViewCell
+
+@property (weak, nonatomic) id<NewsCellDelegate> delegate;
 
 - (void)bind: (NewsModel *)newsItem;
 

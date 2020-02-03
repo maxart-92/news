@@ -9,13 +9,14 @@
 #import "NewsList.h"
 #import "NewsCell.h"
 #import "NewsModel.h"
+#import "SafariServices/SafariServices.h"
 #import "THSHTTPCommunication.h"
 
 #import "NetworkManager.h"
 #import <AFNetworking/AFNetworking.h>
 
 
-@interface NewsList () <UITableViewDelegate, UITableViewDataSource>
+@interface NewsList () <UITableViewDelegate, UITableViewDataSource, SFSafariViewControllerDelegate, NewsCellDelegate>
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 
@@ -25,7 +26,6 @@
 @end
 
 @implementation NewsList
-
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -62,10 +62,33 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     NewsCell *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([NewsCell class]) forIndexPath:indexPath];
     
-    //NSLog(@"%d News Count in cellForRowAtIndexPath",(int)self.newsList.count);
     [cell bind:self.newsList[indexPath.row]];
     
     return cell;
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    if (self.newsList[indexPath.row].url != (NSString*)[NSNull null]){
+        SFSafariViewController *svc = [[SFSafariViewController alloc] initWithURL:[NSURL URLWithString:self.newsList[indexPath.row].url]];
+        svc.delegate = self;
+        [self presentViewController:svc animated:true completion:nil];
+    }
+}
+
+- (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath{
+    
+}
+
+- (void)safariViewControllerDidFinish:(SFSafariViewController *)controller{
+    [self dismissViewControllerAnimated:true completion:nil];
+}
+
+#pragma mark - NewsCellDelegate
+
+- (void)updateCellConstraints:(NewsModel *) newsModel{
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self.tableView reloadData];
+    });
 }
 
 #pragma mark - Data
@@ -91,6 +114,7 @@
         }
     }];
     [dataTask resume];
+    
 }
 
 - (void)setupModel {
@@ -98,11 +122,20 @@
     for (int i = 0; i < self.articlesFromJSON.count; i++){
         NewsModel *newsIt = [NewsModel new];
         newsIt.title = [self.articlesFromJSON[i] valueForKey:@"title"];
+        newsIt.newsDescription = [self.articlesFromJSON[i] valueForKey:@"description"];
         newsIt.author = [self.articlesFromJSON[i] valueForKey:@"author"];
         newsIt.publishedAt = [self.articlesFromJSON[i] valueForKey:@"publishedAt"];
         newsIt.name = [[self.articlesFromJSON[i] valueForKey:@"source"] valueForKey:@"name"];
+        newsIt.url = [self.articlesFromJSON[i] valueForKey:@"url"];
         newsIt.urlToImage = [self.articlesFromJSON[i] valueForKey:@"urlToImage"];
-        //NSLog(@"%@ News Title",newsIt.title);
+        /*test
+        if (i == 2){
+            newsIt.urlToImage = (NSString*)[NSNull null];
+        }
+         */
+        /*
+        NSLog(@"%@ News Title AAAAAAAAAAAAAAAAAAAAAAABBAAAAAAA",newsIt.title);
+        }*/
         [self.newsList addObject:newsIt];
         //NSLog(@"%d News Count",(int)self.newsList.count);
     }
@@ -136,8 +169,10 @@
 
 - (void) loadData{
     self.newsList = [NSMutableArray new];
-    self.newsList = [NetworkManager fetchData];
+    self.newsList = [[NetworkManager fetchData] copy];
     
+    //NSLog(@"%@ News Title AAAAAAAAAAAAAAAAAAAAAAABBAAAAAAAqwewcfdsdvdgffdgfdgdgdgdfd",self.newsList[1].title);
+    //NSLog(@"%d News Count AAAABBBCCCDDDEEE",(int)self.newsList.count);
     dispatch_async(dispatch_get_main_queue(), ^{
         [self.tableView reloadData];
     });

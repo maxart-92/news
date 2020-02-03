@@ -9,6 +9,12 @@
 #import "NetworkManager.h"
 #import <AFNetworking/AFNetworking.h>
 
+@interface NetworkManager()
+
+@property (strong, nonatomic) NSMutableArray<NewsModel *> *newsList;
+
+@end
+
 @implementation NetworkManager
 
 + (NSMutableArray *) fetchData{
@@ -36,13 +42,21 @@
             for (int i = 0; i < News.count; i++){
                 NewsModel *newsIt = [NewsModel new];
                 newsIt.title = [News[i] valueForKey:@"title"];
+                newsIt.newsDescription = [News[i] valueForKey:@"description"];
                 newsIt.author = [News[i] valueForKey:@"author"];
                 newsIt.publishedAt = [News[i] valueForKey:@"publishedAt"];
+                newsIt.name = [[News[i] valueForKey:@"source"] valueForKey:@"name"];
+                newsIt.url = [News[i] valueForKey:@"url"];
+                newsIt.urlToImage = [News[i] valueForKey:@"urlToImage"];
+                
                 [newsList addObject:newsIt];
+                NSLog(@"%d News Count AAAABBBCCCDDDEEE",(int)newsList.count);
             }
         }
     }];
     [dataTask resume];
+    //NSLog(@"%d News Count AAAABBBCCCDDDEEE",(int)newsList.count);
+    //NSLog(@"%@ News Title AAAAAAAAAAAAAAAAAAAAAAABBAAAAAAAqwewcfdsdvdgffdgfdgdgdgdfd", newsList[1].title);
     return newsList;
 }
 

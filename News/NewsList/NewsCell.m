@@ -11,7 +11,7 @@
 #import <SDWebImage/SDWebImage.h>
 
 @interface NewsCell ()
-@property (weak, nonatomic) IBOutlet UILabel *item;
+@property (weak, nonatomic) IBOutlet UILabel *title;
 @property (weak, nonatomic) IBOutlet UIImageView *previewImage;
 @property (weak, nonatomic) IBOutlet UILabel *publishedAt;
 @property (weak, nonatomic) IBOutlet UILabel *name;
@@ -32,7 +32,6 @@
     
     self.previewImage.translatesAutoresizingMaskIntoConstraints = false;
     self.previewImage.contentMode = UIViewContentModeScaleAspectFill;
-    self.previewImage.backgroundColor = [UIColor blueColor];
     self.previewImage.layer.cornerRadius = 10;
     self.previewImage.layer.masksToBounds = true;
     self.previewImage.hidden = false;
@@ -43,17 +42,20 @@
     
     [self.infoTopConstraint autoRemove];
     self.infoTopConstraint = [self.infoStackView autoPinEdge:ALEdgeTop toEdge:ALEdgeBottom ofView:self.previewImage withOffset:8];
+    
     [self.previewImage autoMatchDimension:ALDimensionHeight toDimension:ALDimensionWidth ofView:self.previewImage withMultiplier:1./2.];
     
     if (self.newsItem.title != (NSString*)[NSNull null]){
-        self.item.text = self.newsItem.title;
+        self.title.text = self.newsItem.title;
+    } else if (self.newsItem.newsDescription != (NSString*)[NSNull null]){
+        self.title.text = self.newsItem.newsDescription;
     } else {
-        self.item.text = @"";
+        self.title.text = @"";
     }
-    if (self.newsItem.author != (NSString*)[NSNull null]){
+    if (self.newsItem.name != (NSString*)[NSNull null]){
         self.name.text = self.newsItem.name;
     }else {
-        self.item.text = @"";
+        self.name.text = @"";
     }
     if (self.newsItem.publishedAt != (NSString*)[NSNull null]){
         NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
@@ -62,13 +64,15 @@
         [dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm"];
         self.publishedAt.text = [dateFormatter stringFromDate:date];
     }else {
-        self.item.text = @"";
+        self.publishedAt.text = @"";
     }
     if (self.newsItem.urlToImage != (NSString*)[NSNull null]){
         [self setupPreviewImage:self.newsItem.urlToImage];
     } else {
+        [self.infoTopConstraint autoRemove];
         self.infoTopConstraint = [self.infoStackView autoPinEdge:ALEdgeTop toEdge:ALEdgeTop ofView:self.infoStackView.superview withOffset:10];
         self.previewImage.hidden = true;
+        [self.activityIndicator stopAnimating];
     }
     
 }
@@ -77,11 +81,15 @@
     dispatch_async(dispatch_get_main_queue(), ^{ @try {
         [self.previewImage sd_setImageWithURL:[NSURL URLWithString:urlToImage]
                                     completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
-                                    [self.activityIndicator stopAnimating];
+                                        [self.activityIndicator stopAnimating];
+                                        //[self.previewImage autoMatchDimension:ALDimensionHeight toDimension:ALDimensionWidth ofView:self.previewImage withMultiplier:(image.size.height/image.size.width)];
+                                        [self.delegate updateCellConstraints:self.newsItem];
                                         if (!image){
+                                            [self.activityIndicator stopAnimating];
                                             [self.infoTopConstraint autoRemove];
                                             self.infoTopConstraint = [self.infoStackView autoPinEdge:ALEdgeTop toEdge:ALEdgeTop ofView:self.infoStackView.superview withOffset:10];
                                             self.previewImage.hidden = true;
+                                            [self.delegate updateCellConstraints:self.newsItem];
                                         }
                                     }];
     } @catch (NSException *exception) {
@@ -89,6 +97,11 @@
         NSLog(@"%@ News Title",self.newsItem.title);
     }
     });
+}
+
+
+- (void)setUpImageSize:(UIImage *)image{
+    [self.previewImage autoMatchDimension:ALDimensionHeight toDimension:ALDimensionWidth ofView:self.previewImage withMultiplier:image.size.height/image.size.width];
 }
 /*
 -(void) updateFieldsViewBottomConstraint{

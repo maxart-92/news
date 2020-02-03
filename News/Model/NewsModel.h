@@ -13,9 +13,11 @@ NS_ASSUME_NONNULL_BEGIN
 @interface NewsModel : NSObject
 
 @property (strong, nonatomic, nullable) NSString *title;
+@property (strong, nonatomic, nullable) NSString *newsDescription;
 @property (strong, nonatomic, nullable) NSString *author;
 @property (strong, nonatomic, nullable) NSString *name;
 @property (strong, nonatomic, nullable) NSString *publishedAt;
+@property (strong, nonatomic, nullable) NSString *url;
 @property (strong, nonatomic, nullable) NSString *urlToImage;
 //@property (strong, nonatomic, nullable) NSString *url;
 //@property (strong, nonatomic, nullable) NSString *urlToImage;
