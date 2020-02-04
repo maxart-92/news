@@ -52,6 +52,8 @@
     self.tableView.rowHeight = UITableViewAutomaticDimension;
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
+    [self.tableView setNeedsLayout];
+    [self.tableView layoutIfNeeded];
     self.tableView.tableFooterView = [UIView new];
 }
 
@@ -178,6 +180,13 @@
 }
 
 - (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath{
+    /*
+    if (self.newsList[indexPath.row].isOpened){
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self.tableView reloadData];
+        });
+    }
+     */
     
 }
 
@@ -189,6 +198,7 @@
 
 - (void)updateCellConstraints:(NewsModel *) newsModel{
     long index = [self.newsList indexOfObject:newsModel];
+    self.newsList[index].isOpened = true;
     dispatch_async(dispatch_get_main_queue(), ^{
         [self.tableView reloadData];
     });
@@ -210,7 +220,7 @@
         
         if (error) {
             NSLog(@"Error: %@", error);
-            [self showBasicErrorAlert:@"Internet access is required for the application to work"];
+           // [self showBasicErrorAlert:@"Internet access is required for the application to work"];
             [self hideWaiter];
             
         } else {

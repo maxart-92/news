@@ -13,6 +13,7 @@
 @interface NewsCell ()
 @property (weak, nonatomic) IBOutlet UILabel *title;
 @property (weak, nonatomic) IBOutlet UIImageView *previewImage;
+@property (weak, nonatomic) IBOutlet UIImage *image;
 @property (weak, nonatomic) IBOutlet UILabel *publishedAt;
 @property (weak, nonatomic) IBOutlet UILabel *name;
 
@@ -25,7 +26,18 @@
 @end
 
 @implementation NewsCell
- 
+
+/*
+- (void)imageAsyncDownloadByLink:(NSString *)link completion:(void(^)(UIImage *image))completion {
+    if (link.length && completion) {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            UIImage *image = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:link]]];
+            completion(image);
+           });
+    }
+}
+ */
+
 - (void)bind:(NewsModel *)item{
     
     self.newsItem = item;
@@ -66,6 +78,7 @@
     }else {
         self.publishedAt.text = @"";
     }
+    
     if (self.newsItem.urlToImage != (NSString*)[NSNull null]){
         [self setupPreviewImage:self.newsItem.urlToImage];
     } else {
@@ -81,15 +94,19 @@
     dispatch_async(dispatch_get_main_queue(), ^{ @try {
         [self.previewImage sd_setImageWithURL:[NSURL URLWithString:urlToImage]
                                     completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
-                                        [self.activityIndicator stopAnimating];
                                         //[self.previewImage autoMatchDimension:ALDimensionHeight toDimension:ALDimensionWidth ofView:self.previewImage withMultiplier:(image.size.height/image.size.width)];
-                                        [self.delegate updateCellConstraints:self.newsItem];
-                                        if (!image){
+                                        //[self.delegate updateCellConstraints:self.newsItem];
+                                        if (image){
+                                            [self.activityIndicator stopAnimating];
+                                            //[self.previewImage autoMatchDimension:ALDimensionHeight toDimension:ALDimensionWidth ofView:self.previewImage withMultiplier:(image.size.height/image.size.width)];
+                                            //[self.infoTopConstraint autoRemove];
+                                            //self.infoTopConstraint = [self.infoStackView autoPinEdge:ALEdgeTop toEdge:ALEdgeBottom ofView:self.previewImage withOffset:8];
+                                        } else {
                                             [self.activityIndicator stopAnimating];
                                             [self.infoTopConstraint autoRemove];
                                             self.infoTopConstraint = [self.infoStackView autoPinEdge:ALEdgeTop toEdge:ALEdgeTop ofView:self.infoStackView.superview withOffset:10];
                                             self.previewImage.hidden = true;
-                                            //[self.delegate updateCellConstraints:self.newsItem];
+                                            [self.delegate updateCellConstraints:self.newsItem];
                                         }
                                     }];
     } @catch (NSException *exception) {
