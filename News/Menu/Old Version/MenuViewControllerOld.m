@@ -6,18 +6,18 @@
 //  Copyright © 2020 Максим Артемьев. All rights reserved.
 //
 
-#import "MenuViewController.h"
+#import "MenuViewControllerOld.h"
 #import "MenuCell.h"
 #import "NewsList.h"
 
-@interface MenuViewController () <UICollectionViewDelegate, UICollectionViewDataSource>
+@interface MenuViewControllerOld () <UICollectionViewDelegate, UICollectionViewDataSource>
 
 @property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
 @property (strong, nonatomic) NSArray *newsTypes;
 
 @end
 
-@implementation MenuViewController
+@implementation MenuViewControllerOld
 
 - (void)viewDidLoad {
     [super viewDidLoad];

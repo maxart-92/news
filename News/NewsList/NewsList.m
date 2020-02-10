@@ -10,6 +10,10 @@
 #import "NewsCell.h"
 #import "NewsModel.h"
 #import "SafariServices/SafariServices.h"
+#import "NewsText.h"
+
+#import "TUSafariActivity/TUSafariActivity.h"
+
 #import "THSHTTPCommunication.h"
 #import "PureLayout.h"
 
@@ -20,6 +24,9 @@
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 
+@property (strong, nonatomic) UIBarButtonItem *refreshButtonItem;
+@property (strong, nonatomic) UIBarButtonItem *changeColorSchemeButtonItem;
+
 @property (strong, nonatomic) NSArray *articlesFromJSON;
 @property (strong, nonatomic) NSMutableArray<NewsModel *> *newsList;
 
@@ -27,6 +34,7 @@
 @property (strong, nonatomic) UIView *placeholder;
 
 @property (assign, nonatomic) BOOL isAlertShowing;
+@property (assign, nonatomic) BOOL isDarkTheme;
 
 @end
 
@@ -36,14 +44,14 @@
     [super viewDidLoad];
     
     [self setupViews];
+    [self setupNavigationBar];
   
     [self fetchData:self.url];
 }
 
 - (void)setupViews {
-    
-    self.navigationItem.titleView = [self createTitleViewWithTitle:self.newsListTitle];
-    self.navigationItem.rightBarButtonItem = [self createSortButtonItem];
+
+    self.isDarkTheme = false;
     
     NSString *cellId = NSStringFromClass([NewsCell class]);
     [self.tableView registerNib:[UINib nibWithNibName:cellId bundle:nil] forCellReuseIdentifier:cellId];
@@ -57,6 +65,32 @@
     self.tableView.tableFooterView = [UIView new];
 }
 
+- (void)setupNavigationBar {
+    self.navigationItem.titleView = [self createTitleViewWithTitle:self.newsListTitle];
+    //self.navigationItem.rightBarButtonItem = [self createRefreshButtonItem];
+    
+    self.refreshButtonItem = [self createRefreshButtonItem];
+    self.changeColorSchemeButtonItem = [self createChangeColorSchemeButtonItem];
+    
+    NSMutableArray *items = [NSMutableArray new];
+    if (self.refreshButtonItem) {
+        [items addObject:self.refreshButtonItem];
+    }
+    [items addObject:self.changeColorSchemeButtonItem];
+    self.navigationItem.rightBarButtonItems = items;
+    self.navigationItem.leftBarButtonItem.tintColor = [UIColor whiteColor];
+    /*
+     UIBarButtonItem *backButton = [[UIBarButtonItem alloc] initWithTitle:@"Back" style:UIBarButtonItemStylePlain target:self action:@selector(onBackButtonTapped:)];
+     self.navigationItem.leftBarButtonItem = backButton;
+     */
+}
+
+/*
+-(void) onBackButtonTapped:(UIBarButtonItem *)sender {
+    [self.navigationController popToRootViewControllerAnimated:YES];
+}
+ */
+
 - (UIView *)createTitleViewWithTitle:(NSString *)title{
     
     UIView *view = [UIView new];
@@ -64,53 +98,51 @@
     
     UILabel *label = [UILabel new];
     label.font = [UIFont systemFontOfSize:18 weight:UIFontWeightSemibold];
-    label.textColor = [UIColor blackColor];
+    label.textColor = [UIColor whiteColor];
     label.text = title;
     [label sizeToFit];
     
     [view addSubview:label];
     
     CGFloat maxWidth = fmin(label.frame.size.width, availableWidth);
-    
     label.frame = CGRectMake(fmax(0, (maxWidth - label.frame.size.width) / 2.0), 0, fmin(label.frame.size.width, maxWidth), label.frame.size.height);
-    
     view.frame = CGRectMake(0, 0, maxWidth, label.frame.size.height);
     
     return view;
 }
 
-- (UIBarButtonItem *)createSortButtonItem {
+- (UIBarButtonItem *)createRefreshButtonItem {
     UIBarButtonItem *barButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemRefresh target:self action:@selector(refreshButtonPressed)];
+    //barButton.tintColor = [UIColor whiteColor];
     
     return barButton;
 }
 
-- (void)showBasicErrorAlert:(NSString *)message {
-    if (self.isAlertShowing) {
-        return;
-    }
+- (UIBarButtonItem *)createChangeColorSchemeButtonItem {
+    UIBarButtonItem *barButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemEdit target:self action:@selector(changeColorSchemeButtonPressed)];
     
-    self.isAlertShowing = YES;
-    
-    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:nil message:message delegate:self cancelButtonTitle:@"Ок" otherButtonTitles:nil];
-    [alertView show];
-}
-
-- (void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex {
-    self.isAlertShowing = NO;
+    return barButton;
 }
 
 - (void) refreshButtonPressed{
     [self fetchData:self.url];
 }
 
-#pragma mark - waiter, placeholder
+- (void) changeColorSchemeButtonPressed{
+    if (self.isDarkTheme){
+        self.isDarkTheme = false;
+    } else {
+    self.isDarkTheme = true;
+    }
+}
+
+#pragma mark - waiter, placeholder, alert
 
 - (void)showWaiter {
     if (!self.waiter) {
         self.waiter = [[UIActivityIndicatorView alloc] init];
         self.waiter.activityIndicatorViewStyle = UIActivityIndicatorViewStyleWhiteLarge;
-        self.waiter.color = [UIColor colorWithRed:255./255 green:126./255 blue:121./255 alpha:1.];
+        self.waiter.color = [UIColor colorWithRed:213./255 green:92./255 blue:70./255 alpha:1.];
     }
     
     [self.view addSubview:self.waiter];
@@ -135,6 +167,7 @@
     [self.view layoutIfNeeded];
 }
 
+/*
 - (void)showPlaceholderTest {
     if (!self.placeholder) {
         self.placeholder = [UIView new];
@@ -146,9 +179,25 @@
     [self.placeholder autoPinEdgesToSuperviewEdges];
     [self.view layoutIfNeeded];
 }
+ */
 
 - (void)hidePlaceholder {
     [self.placeholder removeFromSuperview];
+}
+
+- (void)showBasicErrorAlert:(NSString *)message {
+    if (self.isAlertShowing) {
+        return;
+    }
+    
+    self.isAlertShowing = YES;
+    
+    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:nil message:message delegate:self cancelButtonTitle:@"Ок" otherButtonTitles:nil];
+    [alertView show];
+}
+
+- (void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex {
+    self.isAlertShowing = NO;
 }
 
 #pragma mark - UITableViewDelegate, UITableViewDataSource
@@ -165,6 +214,14 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     NewsCell *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([NewsCell class]) forIndexPath:indexPath];
+
+    /* сделать в классе ячейки метод по смене темы, принимающий bool или сделать его прям в методе bind
+    if (self.isDarkTheme){
+        cell.backgroundColor = [UIColor blackColor];
+    }else{
+        cell.backgroundColor = [UIColor whiteColor];
+    }
+     */
     
     [cell bind:self.newsList[indexPath.row]];
     
@@ -172,22 +229,34 @@
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    
     if (self.newsList[indexPath.row].url != (NSString*)[NSNull null]){
         SFSafariViewController *svc = [[SFSafariViewController alloc] initWithURL:[NSURL URLWithString:self.newsList[indexPath.row].url]];
         svc.delegate = self;
         [self presentViewController:svc animated:true completion:nil];
     }
+    /*
+        UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"NewsText" bundle:nil];
+        NewsText *newsText = (NewsText *)[storyboard instantiateViewControllerWithIdentifier:NSStringFromClass([NewsText class])];
+        newsText.newsDescription = self.newsList[indexPath.row].newsDescription;
+        newsText.content = self.newsList[indexPath.row].content;
+        [self.navigationController pushViewController:newsText animated:YES];*/
+        /*
+        NSURL *URL = [NSURL URLWithString:self.newsList[indexPath.row].url];
+        TUSafariActivity *activity = [[TUSafariActivity alloc] init];
+        UIActivityViewController *activityViewController = [[UIActivityViewController alloc] initWithActivityItems:@[URL] applicationActivities:@[activity]];
+        
+        [self presentViewController:activityViewController animated:YES completion:nil];
+         */
 }
 
+/*
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
+  
+}
+ */
+
 - (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath{
-    /*
-    if (self.newsList[indexPath.row].isOpened){
-        dispatch_async(dispatch_get_main_queue(), ^{
-            [self.tableView reloadData];
-        });
-    }
-     */
-    
 }
 
 - (void)safariViewControllerDidFinish:(SFSafariViewController *)controller{
@@ -198,7 +267,6 @@
 
 - (void)updateCellConstraints:(NewsModel *) newsModel{
     long index = [self.newsList indexOfObject:newsModel];
-    self.newsList[index].isOpened = true;
     dispatch_async(dispatch_get_main_queue(), ^{
         [self.tableView reloadData];
     });
@@ -220,7 +288,7 @@
         
         if (error) {
             NSLog(@"Error: %@", error);
-           // [self showBasicErrorAlert:@"Internet access is required for the application to work"];
+            [self showBasicErrorAlert:@"Something wrong with connection. Internet access is required for the application to work"];
             [self hideWaiter];
             
         } else {
@@ -249,6 +317,7 @@
         newsIt.name = [[self.articlesFromJSON[i] valueForKey:@"source"] valueForKey:@"name"];
         newsIt.url = [self.articlesFromJSON[i] valueForKey:@"url"];
         newsIt.urlToImage = [self.articlesFromJSON[i] valueForKey:@"urlToImage"];
+        newsIt.content = [self.articlesFromJSON[i] valueForKey:@"content"];
         /*test
         if (i == 2){
             newsIt.urlToImage = (NSString*)[NSNull null];

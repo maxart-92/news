@@ -20,11 +20,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (strong, nonatomic, nullable) NSString *url;
 @property (strong, nonatomic, nullable) NSString *urlToImage;
 
-@property (assign, nonatomic) BOOL isOpened;
-@property (assign, nonatomic) int additionalOffers;
-//@property (strong, nonatomic, nullable) NSString *url;
-//@property (strong, nonatomic, nullable) NSString *urlToImage;
-//@property (strong, nonatomic, nullable) NSString *publishedAt;
+@property (strong, nonatomic, nullable) NSString *content;
 
 @end
 

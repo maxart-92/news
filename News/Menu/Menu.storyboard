@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="DBo-mZ-0Sh">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="JHr-Fo-Vgt">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -13,7 +13,7 @@
         <!--Categories-->
         <scene sceneID="00S-3G-fDf">
             <objects>
-                <viewController storyboardIdentifier="Menu" useStoryboardIdentifierAsRestorationIdentifier="YES" id="HH3-Wa-ULd" customClass="MenuViewController" sceneMemberID="viewController">
+                <viewController id="HH3-Wa-ULd" customClass="MenuViewControllerOld" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Kjk-SJ-Utp">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -35,7 +35,7 @@
                                             <rect key="frame" x="0.0" y="0.0" width="340" height="80"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tME-Qg-g00">
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="OLD VERSION" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tME-Qg-g00">
                                                     <rect key="frame" x="0.0" y="0.0" width="340" height="80"/>
                                                     <color key="backgroundColor" red="0.83703279253189944" green="0.35970496446576566" blue="0.27542384537206788" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                                     <fontDescription key="fontDescription" name="AvenirNextCondensed-BoldItalic" family="Avenir Next Condensed" pointSize="41"/>
@@ -72,14 +72,114 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="dGz-Eo-eO9"/>
                     </view>
-                    <navigationItem key="navigationItem" title="Categories" id="4tR-40-wX1"/>
+                    <navigationItem key="navigationItem" title="Categories" id="4tR-40-wX1">
+                        <barButtonItem key="backBarButtonItem" title="Back" id="T1X-Iw-fpF"/>
+                    </navigationItem>
                     <connections>
                         <outlet property="collectionView" destination="Onp-sA-qSA" id="cUX-Ka-IJx"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="OtG-XO-8M0" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="228" y="54.422788605697157"/>
+            <point key="canvasLocation" x="1873" y="85"/>
+        </scene>
+        <!--Categories-->
+        <scene sceneID="mGv-dw-gqa">
+            <objects>
+                <viewController useStoryboardIdentifierAsRestorationIdentifier="YES" id="yX4-FM-H0G" customClass="Menu" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="kmr-Qs-8wd">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="30" translatesAutoresizingMaskIntoConstraints="NO" id="yUU-le-5J7">
+                                <rect key="frame" x="15" y="94" width="345" height="553"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GSr-UK-VlE">
+                                        <rect key="frame" x="0.0" y="0.0" width="345" height="86.5"/>
+                                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <fontDescription key="fontDescription" name="AvenirNextCondensed-BoldItalic" family="Avenir Next Condensed" pointSize="41"/>
+                                        <state key="normal" title="Business">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="businessButtonPressed:" destination="yX4-FM-H0G" eventType="touchUpInside" id="3Ps-KI-Pxk"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8Is-8z-0Nc">
+                                        <rect key="frame" x="0.0" y="116.5" width="345" height="86.5"/>
+                                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <fontDescription key="fontDescription" name="AvenirNextCondensed-BoldItalic" family="Avenir Next Condensed" pointSize="41"/>
+                                        <state key="normal" title="Wall Street">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="wallStreetButtonPressed:" destination="yX4-FM-H0G" eventType="touchUpInside" id="XnZ-dj-Dmw"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Grx-fy-7Kw">
+                                        <rect key="frame" x="0.0" y="233" width="345" height="87"/>
+                                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <fontDescription key="fontDescription" name="AvenirNextCondensed-BoldItalic" family="Avenir Next Condensed" pointSize="41"/>
+                                        <state key="normal" title="TechCrunch">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="techCrunchButtonPressed:" destination="yX4-FM-H0G" eventType="touchUpInside" id="oDC-tM-Am0"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1Cx-62-WRZ">
+                                        <rect key="frame" x="0.0" y="350" width="345" height="86.5"/>
+                                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <fontDescription key="fontDescription" name="AvenirNextCondensed-BoldItalic" family="Avenir Next Condensed" pointSize="41"/>
+                                        <state key="normal" title="Apple">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="appleButtonPressed:" destination="yX4-FM-H0G" eventType="touchUpInside" id="xtE-zH-gBV"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YYF-9Y-a1A">
+                                        <rect key="frame" x="0.0" y="466.5" width="345" height="86.5"/>
+                                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <fontDescription key="fontDescription" name="AvenirNextCondensed-BoldItalic" family="Avenir Next Condensed" pointSize="41"/>
+                                        <state key="normal" title="Bitcoin">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="bitcoinButtonPressed:" destination="yX4-FM-H0G" eventType="touchUpInside" id="6Ml-kQ-vPo"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                            </stackView>
+                        </subviews>
+                        <color key="backgroundColor" red="0.12984204290000001" green="0.12984612579999999" blue="0.12984395030000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="gN6-N6-TKt" firstAttribute="trailing" secondItem="yUU-le-5J7" secondAttribute="trailing" constant="15" id="0aW-q2-1VY"/>
+                            <constraint firstItem="yUU-le-5J7" firstAttribute="leading" secondItem="gN6-N6-TKt" secondAttribute="leading" constant="15" id="ssw-WR-2wK"/>
+                            <constraint firstItem="yUU-le-5J7" firstAttribute="top" secondItem="gN6-N6-TKt" secondAttribute="top" constant="30" id="uia-rI-U8x"/>
+                            <constraint firstItem="gN6-N6-TKt" firstAttribute="bottom" secondItem="yUU-le-5J7" secondAttribute="bottom" constant="20" id="yIn-Gz-Piw"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="gN6-N6-TKt"/>
+                    </view>
+                    <navigationItem key="navigationItem" title="Categories" id="Hb2-os-8IC">
+                        <barButtonItem key="backBarButtonItem" title="Back" id="Iby-QP-qwV"/>
+                        <barButtonItem key="leftBarButtonItem" title="Sign out" style="done" id="z1G-08-3Bw">
+                            <connections>
+                                <action selector="signOutButtonPressed:" destination="yX4-FM-H0G" id="1l8-X9-Csr"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="appleButton" destination="1Cx-62-WRZ" id="TdR-5e-u3A"/>
+                        <outlet property="bitcoinButton" destination="YYF-9Y-a1A" id="xpJ-bI-ICS"/>
+                        <outlet property="businessButton" destination="GSr-UK-VlE" id="HLQ-hB-3yt"/>
+                        <outlet property="techCrunchButton" destination="Grx-fy-7Kw" id="oqA-cD-rB2"/>
+                        <outlet property="wallStreetButton" destination="8Is-8z-0Nc" id="r6o-xg-VLc"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Xiu-t9-9s1" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-116" y="86"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="Qk0-ow-CBD">
@@ -97,7 +197,25 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="J6C-cc-qYK" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-564" y="54"/>
+            <point key="canvasLocation" x="1081" y="84"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="SjB-ld-H1y">
+            <objects>
+                <navigationController storyboardIdentifier="Menu" automaticallyAdjustsScrollViewInsets="NO" useStoryboardIdentifierAsRestorationIdentifier="YES" id="JHr-Fo-Vgt" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="DaL-ew-fdT">
+                        <rect key="frame" x="0.0" y="20" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="yX4-FM-H0G" kind="relationship" relationship="rootViewController" id="YIr-P7-Qhn"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="USe-I6-Zjw" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-916" y="85"/>
         </scene>
     </scenes>
 </document>

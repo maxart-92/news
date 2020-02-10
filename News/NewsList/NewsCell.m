@@ -37,7 +37,13 @@
     }
 }
  */
-
+/*
+- (void)prepareForReuse {
+    self.previewImage.image = nil;
+    
+    [super prepareForReuse];
+}
+*/
 - (void)bind:(NewsModel *)item{
     
     self.newsItem = item;
@@ -55,7 +61,7 @@
     [self.infoTopConstraint autoRemove];
     self.infoTopConstraint = [self.infoStackView autoPinEdge:ALEdgeTop toEdge:ALEdgeBottom ofView:self.previewImage withOffset:8];
     
-    [self.previewImage autoMatchDimension:ALDimensionHeight toDimension:ALDimensionWidth ofView:self.previewImage withMultiplier:1./2.];
+    //[self.previewImage autoMatchDimension:ALDimensionHeight toDimension:ALDimensionWidth ofView:self.previewImage withMultiplier:1./2.];
     
     if (self.newsItem.title != (NSString*)[NSNull null]){
         self.title.text = self.newsItem.title;
@@ -64,11 +70,13 @@
     } else {
         self.title.text = @"";
     }
+    
     if (self.newsItem.name != (NSString*)[NSNull null]){
         self.name.text = self.newsItem.name;
     }else {
         self.name.text = @"";
     }
+    
     if (self.newsItem.publishedAt != (NSString*)[NSNull null]){
         NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
         [dateFormatter setDateFormat:@"yyyy-MM-dd'T'HH:mm:ssZ"];
@@ -80,6 +88,7 @@
     }
     
     if (self.newsItem.urlToImage != (NSString*)[NSNull null]){
+          [self.previewImage autoMatchDimension:ALDimensionHeight toDimension:ALDimensionWidth ofView:self.previewImage withMultiplier:1./2.];
         [self setupPreviewImage:self.newsItem.urlToImage];
     } else {
         [self.infoTopConstraint autoRemove];
@@ -94,13 +103,11 @@
     dispatch_async(dispatch_get_main_queue(), ^{ @try {
         [self.previewImage sd_setImageWithURL:[NSURL URLWithString:urlToImage]
                                     completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
-                                        //[self.previewImage autoMatchDimension:ALDimensionHeight toDimension:ALDimensionWidth ofView:self.previewImage withMultiplier:(image.size.height/image.size.width)];
-                                        //[self.delegate updateCellConstraints:self.newsItem];
                                         if (image){
                                             [self.activityIndicator stopAnimating];
                                             //[self.previewImage autoMatchDimension:ALDimensionHeight toDimension:ALDimensionWidth ofView:self.previewImage withMultiplier:(image.size.height/image.size.width)];
-                                            //[self.infoTopConstraint autoRemove];
-                                            //self.infoTopConstraint = [self.infoStackView autoPinEdge:ALEdgeTop toEdge:ALEdgeBottom ofView:self.previewImage withOffset:8];
+                                            [self.infoTopConstraint autoRemove];
+                                            self.infoTopConstraint = [self.infoStackView autoPinEdge:ALEdgeTop toEdge:ALEdgeBottom ofView:self.previewImage withOffset:8];
                                         } else {
                                             [self.activityIndicator stopAnimating];
                                             [self.infoTopConstraint autoRemove];
