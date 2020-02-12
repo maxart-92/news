@@ -123,7 +123,6 @@
     });
 }
 
-
 - (void)setUpImageSize:(UIImage *)image{
     [self.previewImage autoMatchDimension:ALDimensionHeight toDimension:ALDimensionWidth ofView:self.previewImage withMultiplier:image.size.height/image.size.width];
 }

@@ -8,8 +8,9 @@
 
 #import "AuthorisationViewController.h"
 #import "Menu.h"
+//#import "User.h"
 #import <Firebase/Firebase.h>
-//#import <IQKeyboardManager.h>
+#import <IQKeyboardManager.h>
 
 @interface AuthorisationViewController ()
 @property (weak, nonatomic) IBOutlet UILabel *warningLabel;
@@ -17,6 +18,10 @@
 @property (weak, nonatomic) IBOutlet UITextField *passwordTextField;
 @property (weak, nonatomic) IBOutlet UIButton *loginButton;
 @property (weak, nonatomic) IBOutlet UIButton *registerButton;
+
+//@property (strong, nonatomic) User *currentUser;
+
+@property (strong, nonatomic) FIRDatabaseReference *ref;
 
 @property(strong, nonatomic) FIRAuthStateDidChangeListenerHandle handle;
 
@@ -29,6 +34,7 @@
     
     [self setupButtonsStyle];
     
+    self.ref = [[FIRDatabase database] reference];
     self.warningLabel.alpha = 0;
 }
 
@@ -60,48 +66,46 @@
         self.warningLabel.alpha = 0;
         } completion:^(BOOL finished) {
         }];
-        
     }];
-     
 }
 
 - (IBAction)loginTapped:(UIButton *)sender {
-    NSString *email = self.emailTextField.text;
-    NSString *password = self.passwordTextField.text;
-    if ([email isEqualToString:@""] || [password isEqualToString:@""]){
-        [self displayWarningLabel:@"info is incorrect"];
+    if ([self.emailTextField.text isEqualToString:@""] || [self.passwordTextField.text isEqualToString:@""]){
+        [self displayWarningLabel:@"All fields must be filled"];
         return;
     }
-    [[FIRAuth auth] signInWithEmail:self.emailTextField.text
-                           password:self.passwordTextField.text
-                         completion:^(FIRAuthDataResult * _Nullable authResult,
-                                      NSError * _Nullable error) {
-                             if (!error){
-                                 //[self goToMenu];
-                                 return;
-                             } else {
-                                 [self displayWarningLabel:@"Error occured"];
-                                 return;
-                             }
-                         }];
+    [[FIRAuth auth] signInWithEmail:self.emailTextField.text password:self.passwordTextField.text completion:^(FIRAuthDataResult * _Nullable authResult, NSError * _Nullable error) {
+        if (error){
+            [self displayWarningLabel:error.localizedDescription];
+            return;
+        }
+    }];
 }
 
 - (IBAction)registerTapped:(UIButton *)sender {
-    NSString *email = self.emailTextField.text;
-    NSString *password = self.passwordTextField.text;
-    if ([email isEqualToString:@""] || [password isEqualToString:@""]){
-        [self displayWarningLabel:@"info is incorrect"];
+    if ([self.emailTextField.text isEqualToString:@""] || [self.passwordTextField.text isEqualToString:@""]){
+        [self displayWarningLabel:@"All fields must be filled"];
         return;
     }
-    [[FIRAuth auth] createUserWithEmail:self.emailTextField.text
-                            password:self.passwordTextField.text
-                             completion:^(FIRAuthDataResult * _Nullable authResult,
-                                          NSError * _Nullable error) {
-                                 if (!error){
-                                     [self goToMenu];
-                                     return;
-                                 }
-                             }];
+    [[FIRAuth auth] createUserWithEmail:self.emailTextField.text password:self.passwordTextField.text completion:^(FIRAuthDataResult * _Nullable authResult, NSError * _Nullable error) {
+        if (!error){
+            
+            [[[self.ref child:@"users"] child:authResult.user.uid] setValue:@{@"email": authResult.user.email}];
+            
+            /*
+            [[[_ref child:@"users"] child:user.uid] setValue:@{@"username": username} withCompletionBlock:^(NSError *error, FIRDatabaseReference *ref) {
+                if (error) {
+                    NSLog(@"Data could not be saved: %@", error);
+                } else {
+                    NSLog(@"Data saved successfully.");
+                }
+            }];*/
+            
+            return;
+        } else {
+            [self displayWarningLabel:error.localizedDescription];
+        }
+    }];
 }
 
 - (void)viewWillAppear:(BOOL)animated{
@@ -117,13 +121,12 @@
     self.passwordTextField.text = @"";
 }
 
-
 - (void)viewWillDisappear:(BOOL)animated{
     [super viewWillDisappear:animated];
     [[FIRAuth auth] removeAuthStateDidChangeListener:_handle];
 }
 
-- (void) goToMenu {
+- (void) goToMenu{
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Menu" bundle:nil];
     Menu *menu = (Menu *)[storyboard instantiateViewControllerWithIdentifier:NSStringFromClass([Menu class])];
     [self showViewController:menu sender:nil];

@@ -8,6 +8,7 @@
 
 #import "Menu.h"
 #import "NewsList.h"
+#import "Settings.h"
 #import <Firebase/Firebase.h>
 
 @interface Menu ()
@@ -19,6 +20,8 @@
 @property (weak, nonatomic) IBOutlet UIButton *appleButton;
 @property (weak, nonatomic) IBOutlet UIButton *bitcoinButton;
 
+@property (strong, nonatomic) FIRDatabaseReference *ref;
+
 @end
 
 @implementation Menu
@@ -29,6 +32,9 @@
     [self setupNavigationBar];
     [self setupButtonsStyle];
     [self setupTypes];
+    
+    //self.ref = [[FIRDatabase database] reference];
+    //[self.currentUser setUpUser:FIRAuth.auth.currentUser];
 }
 
 -(UIStatusBarStyle)preferredStatusBarStyle{
@@ -76,7 +82,6 @@
         button.layer.borderWidth = 3;
         [button setTitleColor:([UIColor colorWithRed:198./255 green:73./255 blue:40./255 alpha:1.]) forState:(normal)];
     }
-    
 }
 
 - (IBAction)businessButtonPressed:(UIButton *)sender {
@@ -117,5 +122,11 @@
     [self dismissViewControllerAnimated:true completion:nil];
 }
 
+- (IBAction)settingsBarButton:(UIBarButtonItem *)sender {
+    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Settings" bundle:nil];
+    Settings *settings = (Settings *)[storyboard instantiateViewControllerWithIdentifier:NSStringFromClass([Settings class])];
+    settings.settingsTitle = NSStringFromClass([Settings class]);
+    [self.navigationController pushViewController:settings animated:YES];
+}
 
 @end

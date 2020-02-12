@@ -152,7 +152,7 @@
                                 </subviews>
                             </stackView>
                         </subviews>
-                        <color key="backgroundColor" red="0.12984204290000001" green="0.12984612579999999" blue="0.12984395030000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="backgroundColor" red="0.23529411764705882" green="0.12984612579999999" blue="0.12984395030000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="gN6-N6-TKt" firstAttribute="trailing" secondItem="yUU-le-5J7" secondAttribute="trailing" constant="15" id="0aW-q2-1VY"/>
                             <constraint firstItem="yUU-le-5J7" firstAttribute="leading" secondItem="gN6-N6-TKt" secondAttribute="leading" constant="15" id="ssw-WR-2wK"/>
@@ -166,6 +166,11 @@
                         <barButtonItem key="leftBarButtonItem" title="Sign out" style="done" id="z1G-08-3Bw">
                             <connections>
                                 <action selector="signOutButtonPressed:" destination="yX4-FM-H0G" id="1l8-X9-Csr"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" title="Settings" style="done" id="wfX-m5-Nem">
+                            <connections>
+                                <action selector="settingsBarButton:" destination="yX4-FM-H0G" id="F8s-6I-hDW"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>

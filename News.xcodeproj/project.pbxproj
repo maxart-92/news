@@ -16,6 +16,10 @@
 		672F206523EAFB2B00911C28 /* NewsText.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 672F206423EAFB2B00911C28 /* NewsText.storyboard */; };
 		6765745B23EECD97002B306B /* AuthorisationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6765745A23EECD97002B306B /* AuthorisationViewController.m */; };
 		6765745F23EF195D002B306B /* Authorisation.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6765745E23EF195D002B306B /* Authorisation.storyboard */; };
+		6765746323F18AB0002B306B /* Settings.m in Sources */ = {isa = PBXBuildFile; fileRef = 6765746223F18AB0002B306B /* Settings.m */; };
+		6765746523F18ACB002B306B /* Settings.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6765746423F18ACB002B306B /* Settings.storyboard */; };
+		6765746823F191DD002B306B /* User.m in Sources */ = {isa = PBXBuildFile; fileRef = 6765746723F191DD002B306B /* User.m */; };
+		6765746C23F40187002B306B /* BaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6765746B23F40187002B306B /* BaseViewController.m */; };
 		676B62DA23EEC57800CE81B5 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 676B62D923EEC57800CE81B5 /* GoogleService-Info.plist */; };
 		C2D38CF923E2CE6E00E69AFD /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = C2D38CF823E2CE6E00E69AFD /* AppDelegate.m */; };
 		C2D38D0123E2CE7000E69AFD /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C2D38D0023E2CE7000E69AFD /* Assets.xcassets */; };
@@ -47,6 +51,13 @@
 		6765745923EECD97002B306B /* AuthorisationViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AuthorisationViewController.h; sourceTree = "<group>"; };
 		6765745A23EECD97002B306B /* AuthorisationViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AuthorisationViewController.m; sourceTree = "<group>"; };
 		6765745E23EF195D002B306B /* Authorisation.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Authorisation.storyboard; sourceTree = "<group>"; };
+		6765746123F18AB0002B306B /* Settings.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Settings.h; sourceTree = "<group>"; };
+		6765746223F18AB0002B306B /* Settings.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Settings.m; sourceTree = "<group>"; };
+		6765746423F18ACB002B306B /* Settings.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Settings.storyboard; sourceTree = "<group>"; };
+		6765746623F191DD002B306B /* User.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = User.h; sourceTree = "<group>"; };
+		6765746723F191DD002B306B /* User.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = User.m; sourceTree = "<group>"; };
+		6765746A23F40187002B306B /* BaseViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BaseViewController.h; sourceTree = "<group>"; };
+		6765746B23F40187002B306B /* BaseViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BaseViewController.m; sourceTree = "<group>"; };
 		676B62D923EEC57800CE81B5 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		C2D38CF423E2CE6E00E69AFD /* News.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = News.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C2D38CF723E2CE6E00E69AFD /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -113,6 +124,26 @@
 			path = NewsText;
 			sourceTree = "<group>";
 		};
+		6765746023F18A7E002B306B /* Settings */ = {
+			isa = PBXGroup;
+			children = (
+				6765746123F18AB0002B306B /* Settings.h */,
+				6765746223F18AB0002B306B /* Settings.m */,
+				6765746423F18ACB002B306B /* Settings.storyboard */,
+			);
+			name = Settings;
+			path = "New Group";
+			sourceTree = "<group>";
+		};
+		6765746923F40168002B306B /* UI */ = {
+			isa = PBXGroup;
+			children = (
+				6765746A23F40187002B306B /* BaseViewController.h */,
+				6765746B23F40187002B306B /* BaseViewController.m */,
+			);
+			path = UI;
+			sourceTree = "<group>";
+		};
 		676B62DE23EECCF600CE81B5 /* Registration */ = {
 			isa = PBXGroup;
 			children = (
@@ -154,8 +185,10 @@
 			children = (
 				676B62DE23EECCF600CE81B5 /* Registration */,
 				672F205823E8154C00911C28 /* Menu */,
+				6765746023F18A7E002B306B /* Settings */,
 				C2D38D1723E2D14000E69AFD /* NewsList */,
 				672F206023EAFA9700911C28 /* NewsText */,
+				6765746923F40168002B306B /* UI */,
 				C2D38D4223E2FE7300E69AFD /* Model */,
 				C2D38D0523E2CE7000E69AFD /* Info.plist */,
 				676B62D923EEC57800CE81B5 /* GoogleService-Info.plist */,
@@ -186,6 +219,8 @@
 			children = (
 				C2D38D4323E2FEA900E69AFD /* NewsModel.h */,
 				C2D38D4423E2FEA900E69AFD /* NewsModel.m */,
+				6765746623F191DD002B306B /* User.h */,
+				6765746723F191DD002B306B /* User.m */,
 				C2D38D4623E4176F00E69AFD /* NetworkManager.h */,
 				C2D38D4723E4176F00E69AFD /* NetworkManager.m */,
 				C2D38D4923E42A1200E69AFD /* THSHTTPCommunication.h */,
@@ -268,6 +303,7 @@
 				C2D38D1423E2D0E800E69AFD /* NewsCell.xib in Resources */,
 				C2D38D0423E2CE7000E69AFD /* LaunchScreen.storyboard in Resources */,
 				C2D38D0123E2CE7000E69AFD /* Assets.xcassets in Resources */,
+				6765746523F18ACB002B306B /* Settings.storyboard in Resources */,
 				C2D38D1623E2D12400E69AFD /* NewsList.storyboard in Resources */,
 				676B62DA23EEC57800CE81B5 /* GoogleService-Info.plist in Resources */,
 			);
@@ -323,12 +359,15 @@
 			buildActionMask = 2147483647;
 			files = (
 				672F205E23E9D07B00911C28 /* Menu.m in Sources */,
+				6765746C23F40187002B306B /* BaseViewController.m in Sources */,
 				6765745B23EECD97002B306B /* AuthorisationViewController.m in Sources */,
+				6765746323F18AB0002B306B /* Settings.m in Sources */,
 				C2D38D4B23E42A1200E69AFD /* THSHTTPCommunication.m in Sources */,
 				C2D38D4523E2FEA900E69AFD /* NewsModel.m in Sources */,
 				C2D38D0723E2CE7000E69AFD /* main.m in Sources */,
 				672F205523E8152400911C28 /* MenuViewControllerOld.m in Sources */,
 				672F206323EAFADA00911C28 /* NewsText.m in Sources */,
+				6765746823F191DD002B306B /* User.m in Sources */,
 				C2D38D1323E2D0E800E69AFD /* NewsCell.m in Sources */,
 				672F205B23E819F300911C28 /* MenuCell.m in Sources */,
 				C2D38D1A23E2D26000E69AFD /* NewsList.m in Sources */,

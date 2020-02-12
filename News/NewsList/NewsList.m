@@ -91,26 +91,6 @@
 }
  */
 
-- (UIView *)createTitleViewWithTitle:(NSString *)title{
-    
-    UIView *view = [UIView new];
-    CGFloat availableWidth = self.view.frame.size.width - 140;
-    
-    UILabel *label = [UILabel new];
-    label.font = [UIFont systemFontOfSize:18 weight:UIFontWeightSemibold];
-    label.textColor = [UIColor whiteColor];
-    label.text = title;
-    [label sizeToFit];
-    
-    [view addSubview:label];
-    
-    CGFloat maxWidth = fmin(label.frame.size.width, availableWidth);
-    label.frame = CGRectMake(fmax(0, (maxWidth - label.frame.size.width) / 2.0), 0, fmin(label.frame.size.width, maxWidth), label.frame.size.height);
-    view.frame = CGRectMake(0, 0, maxWidth, label.frame.size.height);
-    
-    return view;
-}
-
 - (UIBarButtonItem *)createRefreshButtonItem {
     UIBarButtonItem *barButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemRefresh target:self action:@selector(refreshButtonPressed)];
     //barButton.tintColor = [UIColor whiteColor];
@@ -288,7 +268,8 @@
         
         if (error) {
             NSLog(@"Error: %@", error);
-            [self showBasicErrorAlert:@"Something wrong with connection. Internet access is required for the application to work"];
+            //[self showBasicErrorAlert:@"Something wrong with connection. Internet access is required for the application to work"];
+            [self showBasicErrorAlert:error.localizedDescription];
             [self hideWaiter];
             
         } else {
