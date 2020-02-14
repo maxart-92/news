@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="gTV-IL-0wX" customClass="NewsCollectionCell">
+            <rect key="frame" x="0.0" y="0.0" width="200" height="296"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                <rect key="frame" x="0.0" y="0.0" width="200" height="296"/>
+                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                <subviews>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="kd9-76-9kw">
+                        <rect key="frame" x="0.0" y="0.0" width="200" height="120"/>
+                        <color key="backgroundColor" red="0.12941176470588234" green="0.12941176470588234" blue="0.12941176470588234" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="120" id="PHL-oh-QQr"/>
+                        </constraints>
+                    </imageView>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3aY-gb-HUN">
+                        <rect key="frame" x="2" y="122" width="196" height="96"/>
+                        <string key="text">Dow Jones futures: Tesla soared on hot results and guidance. Facebook, Microsoft and ServiceNow moved on earnings. Lam Research signaled a buy opportunity.</string>
+                        <fontDescription key="fontDescription" name="AvenirNextCondensed-DemiBold" family="Avenir Next Condensed" pointSize="14"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Annie Palmer" textAlignment="right" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pRB-ko-JL7">
+                        <rect key="frame" x="2" y="221" width="196" height="15.5"/>
+                        <fontDescription key="fontDescription" name="HelveticaNeue-BoldItalic" family="Helvetica Neue" pointSize="13"/>
+                        <color key="textColor" red="0.016804177310000001" green="0.19835099580000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="2020-01-29 23:08" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jl8-iM-KwM">
+                        <rect key="frame" x="2" y="279.5" width="196" height="14.5"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="white" translatesAutoresizingMaskIntoConstraints="NO" id="m4P-3j-qml">
+                        <rect key="frame" x="90" y="50" width="20" height="20"/>
+                        <color key="color" red="1" green="0.4941176471" blue="0.47450980390000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    </activityIndicatorView>
+                </subviews>
+            </view>
+            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+            <constraints>
+                <constraint firstItem="pRB-ko-JL7" firstAttribute="top" secondItem="3aY-gb-HUN" secondAttribute="bottom" constant="3" id="18P-er-uA2"/>
+                <constraint firstAttribute="trailing" secondItem="pRB-ko-JL7" secondAttribute="trailing" constant="2" id="1Sb-b1-6Cz"/>
+                <constraint firstAttribute="trailing" secondItem="3aY-gb-HUN" secondAttribute="trailing" constant="2" id="3rv-Yr-QKI"/>
+                <constraint firstItem="3aY-gb-HUN" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" constant="2" id="Aah-q2-ont"/>
+                <constraint firstItem="3aY-gb-HUN" firstAttribute="top" secondItem="kd9-76-9kw" secondAttribute="bottom" constant="2" id="DP3-pf-blC"/>
+                <constraint firstItem="m4P-3j-qml" firstAttribute="centerY" secondItem="kd9-76-9kw" secondAttribute="centerY" id="INi-Rj-8qZ"/>
+                <constraint firstItem="pRB-ko-JL7" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" constant="2" id="XHJ-9R-Mwg"/>
+                <constraint firstItem="kd9-76-9kw" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="cx6-9L-EdX"/>
+                <constraint firstItem="m4P-3j-qml" firstAttribute="centerX" secondItem="kd9-76-9kw" secondAttribute="centerX" id="dGs-6T-Ckz"/>
+                <constraint firstAttribute="bottom" secondItem="jl8-iM-KwM" secondAttribute="bottom" constant="2" id="kGb-T9-XUz"/>
+                <constraint firstItem="kd9-76-9kw" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="orD-qQ-q3m"/>
+                <constraint firstItem="jl8-iM-KwM" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" constant="2" id="uZw-Hq-L4S"/>
+                <constraint firstAttribute="trailing" secondItem="kd9-76-9kw" secondAttribute="trailing" id="wXx-JG-s4Y"/>
+                <constraint firstAttribute="trailing" secondItem="jl8-iM-KwM" secondAttribute="trailing" constant="2" id="yVo-Hu-a4n"/>
+            </constraints>
+            <viewLayoutGuide key="safeArea" id="SEy-5g-ep8"/>
+            <size key="customSize" width="200" height="296"/>
+            <connections>
+                <outlet property="activityIndicator" destination="m4P-3j-qml" id="yfA-DV-CM9"/>
+                <outlet property="infoTopConstraint" destination="DP3-pf-blC" id="Ghk-vT-BU3"/>
+                <outlet property="name" destination="pRB-ko-JL7" id="jC0-hU-krW"/>
+                <outlet property="previewImage" destination="kd9-76-9kw" id="onf-9J-Inx"/>
+                <outlet property="publishedAt" destination="jl8-iM-KwM" id="Wt3-kE-WOA"/>
+                <outlet property="title" destination="3aY-gb-HUN" id="yAk-HB-CGo"/>
+            </connections>
+            <point key="canvasLocation" x="-113.59999999999999" y="205.09745127436284"/>
+        </collectionViewCell>
+    </objects>
+</document>

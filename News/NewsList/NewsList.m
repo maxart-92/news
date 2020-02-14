@@ -30,10 +30,6 @@
 @property (strong, nonatomic) NSArray *articlesFromJSON;
 @property (strong, nonatomic) NSMutableArray<NewsModel *> *newsList;
 
-@property (strong, nonatomic) UIActivityIndicatorView *waiter;
-@property (strong, nonatomic) UIView *placeholder;
-
-@property (assign, nonatomic) BOOL isAlertShowing;
 @property (assign, nonatomic) BOOL isDarkTheme;
 
 @end
@@ -67,8 +63,9 @@
 
 - (void)setupNavigationBar {
     self.navigationItem.titleView = [self createTitleViewWithTitle:self.newsListTitle];
-    //self.navigationItem.rightBarButtonItem = [self createRefreshButtonItem];
+    self.navigationItem.rightBarButtonItem = [self createRefreshButtonItem];
     
+    /*
     self.refreshButtonItem = [self createRefreshButtonItem];
     self.changeColorSchemeButtonItem = [self createChangeColorSchemeButtonItem];
     
@@ -78,6 +75,7 @@
     }
     [items addObject:self.changeColorSchemeButtonItem];
     self.navigationItem.rightBarButtonItems = items;
+    */
     self.navigationItem.leftBarButtonItem.tintColor = [UIColor whiteColor];
     /*
      UIBarButtonItem *backButton = [[UIBarButtonItem alloc] initWithTitle:@"Back" style:UIBarButtonItemStylePlain target:self action:@selector(onBackButtonTapped:)];
@@ -98,15 +96,18 @@
     return barButton;
 }
 
+
 - (UIBarButtonItem *)createChangeColorSchemeButtonItem {
     UIBarButtonItem *barButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemEdit target:self action:@selector(changeColorSchemeButtonPressed)];
     
     return barButton;
 }
 
+
 - (void) refreshButtonPressed{
     [self fetchData:self.url];
 }
+
 
 - (void) changeColorSchemeButtonPressed{
     if (self.isDarkTheme){
@@ -114,70 +115,6 @@
     } else {
     self.isDarkTheme = true;
     }
-}
-
-#pragma mark - waiter, placeholder, alert
-
-- (void)showWaiter {
-    if (!self.waiter) {
-        self.waiter = [[UIActivityIndicatorView alloc] init];
-        self.waiter.activityIndicatorViewStyle = UIActivityIndicatorViewStyleWhiteLarge;
-        self.waiter.color = [UIColor colorWithRed:213./255 green:92./255 blue:70./255 alpha:1.];
-    }
-    
-    [self.view addSubview:self.waiter];
-    [self.waiter autoCenterInSuperview];
-    [self.waiter startAnimating];
-}
-
-- (void)hideWaiter {
-    [self.waiter stopAnimating];
-    [self.waiter removeFromSuperview];
-}
-
-- (void)showPlaceholder {
-    if (!self.placeholder) {
-        self.placeholder = [UIView new];
-        
-        self.placeholder.backgroundColor = [UIColor colorWithRed:26./255 green:26./255 blue:26./255 alpha:1.];
-
-    }
-    [self.view addSubview:self.placeholder];
-    [self.placeholder autoPinEdgesToSuperviewEdges];
-    [self.view layoutIfNeeded];
-}
-
-/*
-- (void)showPlaceholderTest {
-    if (!self.placeholder) {
-        self.placeholder = [UIView new];
-        
-        self.placeholder.backgroundColor = [UIColor greenColor];
-        
-    }
-    [self.view addSubview:self.placeholder];
-    [self.placeholder autoPinEdgesToSuperviewEdges];
-    [self.view layoutIfNeeded];
-}
- */
-
-- (void)hidePlaceholder {
-    [self.placeholder removeFromSuperview];
-}
-
-- (void)showBasicErrorAlert:(NSString *)message {
-    if (self.isAlertShowing) {
-        return;
-    }
-    
-    self.isAlertShowing = YES;
-    
-    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:nil message:message delegate:self cancelButtonTitle:@"Ок" otherButtonTitles:nil];
-    [alertView show];
-}
-
-- (void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex {
-    self.isAlertShowing = NO;
 }
 
 #pragma mark - UITableViewDelegate, UITableViewDataSource
@@ -229,12 +166,6 @@
         [self presentViewController:activityViewController animated:YES completion:nil];
          */
 }
-
-/*
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-  
-}
- */
 
 - (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath{
 }

@@ -15,4 +15,15 @@
     self.email = currentUser.email;
 }
 
+- (instancetype)initWithSnapshot: (FIRDataSnapshot *) snapshot{
+    if (self = [super init]) {
+        self.email = snapshot.value[@"email"];
+        self.firstName = snapshot.value[@"firstName"];
+        self.secondName = snapshot.value[@"secondName"];
+        self.newsFeedMode = snapshot.value[@"newsFeedMode"];
+    }
+    
+    return self;
+}
+
 @end

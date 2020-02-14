@@ -14,6 +14,14 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (UIView *)createTitleViewWithTitle:(NSString *)title;
 
+- (void)showPlaceholder;
+- (void)hidePlaceholder;
+
+- (void)showWaiter;
+- (void)hideWaiter;
+
+- (void)showBasicErrorAlert:(NSString *)message;
+
 @end
 
 NS_ASSUME_NONNULL_END

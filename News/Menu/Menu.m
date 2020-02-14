@@ -8,6 +8,7 @@
 
 #import "Menu.h"
 #import "NewsList.h"
+#import "NewsCollection.h"
 #import "Settings.h"
 #import <Firebase/Firebase.h>
 
@@ -104,9 +105,16 @@
 
 - (void)openNewsList:(int)index{
     
+    /*
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"NewsList" bundle:nil];
     NewsList *newsList = (NewsList *)[storyboard instantiateViewControllerWithIdentifier:NSStringFromClass([NewsList class])];
     newsList.newsListTitle = [self.newsTypes[index] objectForKey:@"type"];
+    newsList.url = [self.newsTypes[index] objectForKey:@"url"];
+    [self.navigationController pushViewController:newsList animated:YES];*/
+    
+    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"NewsCollection" bundle:nil];
+    NewsCollection *newsList = (NewsCollection *)[storyboard instantiateViewControllerWithIdentifier:NSStringFromClass([NewsCollection class])];
+    newsList.newsCollectionTitle = [self.newsTypes[index] objectForKey:@"type"];
     newsList.url = [self.newsTypes[index] objectForKey:@"url"];
     [self.navigationController pushViewController:newsList animated:YES];
     

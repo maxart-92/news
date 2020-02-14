@@ -20,9 +20,12 @@ NS_ASSUME_NONNULL_BEGIN
 @property (strong, nonatomic, nullable) NSString *firstName;
 @property (strong, nonatomic, nullable) NSString *secondName;
 
+@property (strong, nonatomic, nullable) NSString *newsFeedMode;
+
 @property (strong, nonatomic) NSMutableArray<NewsModel *> *savedNewsList;
 
-- (void)setUpUser: (FIRUser *) currentUser;
+-(void)setUpUser:(FIRUser *)currentUser;
+- (instancetype)initWithSnapshot:(FIRDataSnapshot *)snapshot;
 
 @end
 
