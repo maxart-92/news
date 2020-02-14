@@ -21,6 +21,8 @@
 @property (weak, nonatomic) IBOutlet UIButton *appleButton;
 @property (weak, nonatomic) IBOutlet UIButton *bitcoinButton;
 
+@property (strong, nonatomic) NSString *userID;
+@property (strong, nonatomic) User *currentUser;
 @property (strong, nonatomic) FIRDatabaseReference *ref;
 
 @end
@@ -30,11 +32,18 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    self.ref = [[FIRDatabase database] reference];
+    
+    [self setupData];
     [self setupNavigationBar];
     [self setupButtonsStyle];
     [self setupTypes];
     
-    //self.ref = [[FIRDatabase database] reference];
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(setupFeedMode:)
+                                                 name:@"setupFeedMode"
+                                               object:nil];
+    
     //[self.currentUser setUpUser:FIRAuth.auth.currentUser];
 }
 
@@ -104,20 +113,20 @@
 }
 
 - (void)openNewsList:(int)index{
-    
-    /*
-    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"NewsList" bundle:nil];
-    NewsList *newsList = (NewsList *)[storyboard instantiateViewControllerWithIdentifier:NSStringFromClass([NewsList class])];
-    newsList.newsListTitle = [self.newsTypes[index] objectForKey:@"type"];
-    newsList.url = [self.newsTypes[index] objectForKey:@"url"];
-    [self.navigationController pushViewController:newsList animated:YES];*/
-    
-    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"NewsCollection" bundle:nil];
-    NewsCollection *newsList = (NewsCollection *)[storyboard instantiateViewControllerWithIdentifier:NSStringFromClass([NewsCollection class])];
-    newsList.newsCollectionTitle = [self.newsTypes[index] objectForKey:@"type"];
-    newsList.url = [self.newsTypes[index] objectForKey:@"url"];
-    [self.navigationController pushViewController:newsList animated:YES];
-    
+    if ([self.currentUser.newsFeedMode isEqualToString:@"list"]){
+        UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"NewsList" bundle:nil];
+        NewsList *newsList = (NewsList *)[storyboard instantiateViewControllerWithIdentifier:NSStringFromClass([NewsList class])];
+        newsList.newsListTitle = [self.newsTypes[index] objectForKey:@"type"];
+        newsList.url = [self.newsTypes[index] objectForKey:@"url"];
+        [self.navigationController pushViewController:newsList animated:YES];
+    }
+    else if ([self.currentUser.newsFeedMode isEqualToString:@"tile"]){
+        UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"NewsCollection" bundle:nil];
+        NewsCollection *newsList = (NewsCollection *)[storyboard instantiateViewControllerWithIdentifier:NSStringFromClass([NewsCollection class])];
+        newsList.newsCollectionTitle = [self.newsTypes[index] objectForKey:@"type"];
+        newsList.url = [self.newsTypes[index] objectForKey:@"url"];
+        [self.navigationController pushViewController:newsList animated:YES];
+    }
 }
 
 - (IBAction)signOutButtonPressed:(UIBarButtonItem *)sender {
@@ -135,6 +144,22 @@
     Settings *settings = (Settings *)[storyboard instantiateViewControllerWithIdentifier:NSStringFromClass([Settings class])];
     settings.settingsTitle = NSStringFromClass([Settings class]);
     [self.navigationController pushViewController:settings animated:YES];
+}
+
+- (void)setupData {
+    
+    self.userID = [FIRAuth auth].currentUser.uid;
+    [[[self.ref child:@"users"] child:self.userID] observeSingleEventOfType:FIRDataEventTypeValue withBlock:^(FIRDataSnapshot * _Nonnull snapshot) {
+        
+    self.currentUser = [[User alloc] initWithSnapshot:snapshot];
+        
+    } withCancelBlock:^(NSError * _Nonnull error) {
+        NSLog(@"%@", error.localizedDescription);
+    }];
+}
+
+- (void) setupFeedMode:(NSNotification *) notification {
+    self.currentUser.newsFeedMode = notification.object;
 }
 
 @end

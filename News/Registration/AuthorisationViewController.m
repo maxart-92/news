@@ -91,7 +91,7 @@
         if (!error){
             
             [[[self.ref child:@"users"] child:authResult.user.uid] setValue:@{@"email": authResult.user.email}];
-            [[[[self.ref child:@"users"] child:authResult.user.uid] child:@"newsFeedMode"] setValue:@"List"];
+            [[[[self.ref child:@"users"] child:authResult.user.uid] child:@"newsFeedMode"] setValue:@"list"];
             
             /*
             [[[_ref child:@"users"] child:user.uid] setValue:@{@"username": username} withCompletionBlock:^(NSError *error, FIRDatabaseReference *ref) {

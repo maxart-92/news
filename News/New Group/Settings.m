@@ -44,11 +44,6 @@
     self.eMailLabel.text = @"";
     self.firstNameLabel.text = @"";
     self.secondNameLabel.text = @"";
-    if ([self.currentUser.newsFeedMode isEqualToString:@"List"]){
-        [self.newsFeedSegmentedControl setSelectedSegmentIndex:0];
-    } else {
-        [self.newsFeedSegmentedControl setSelectedSegmentIndex:1];
-    }
     
     [self.firstNameEditButton addTarget:self action:@selector(EditButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
     [self.secondNameEditButton addTarget:self action:@selector(EditButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
@@ -58,11 +53,17 @@
     
     self.userID = [FIRAuth auth].currentUser.uid;
     [[[self.ref child:@"users"] child:self.userID] observeSingleEventOfType:FIRDataEventTypeValue withBlock:^(FIRDataSnapshot * _Nonnull snapshot) {
-       
+        
         self.currentUser = [[User alloc] initWithSnapshot:snapshot];
         self.eMailLabel.text = self.currentUser.email;
         self.firstNameLabel.text = self.currentUser.firstName;
         self.secondNameLabel.text = self.currentUser.secondName;
+        
+        if ([self.currentUser.newsFeedMode isEqualToString:@"list"]){
+            [self.newsFeedSegmentedControl setSelectedSegmentIndex:0];
+        } else {
+            [self.newsFeedSegmentedControl setSelectedSegmentIndex:1];
+        }
         
     } withCancelBlock:^(NSError * _Nonnull error) {
         NSLog(@"%@", error.localizedDescription);
@@ -113,6 +114,21 @@
     [alert addAction:cancelButton];
     
     [self presentViewController:alert animated:YES completion:nil];
+}
+
+- (IBAction)segmentedControlIndexChanged:(UISegmentedControl *)sender {
+    switch (self.newsFeedSegmentedControl.selectedSegmentIndex) {
+        case 0:
+            [[[[self.ref child:@"users"] child:self.userID] child:@"newsFeedMode"] setValue:@"list"];
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"setupFeedMode" object:@"list"];
+            break;
+        case 1:
+            [[[[self.ref child:@"users"] child:self.userID] child:@"newsFeedMode"] setValue:@"tile"];
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"setupFeedMode" object:@"tile"];
+            break;
+        default:
+            break;
+    }
 }
 
 @end
