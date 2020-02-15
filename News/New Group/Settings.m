@@ -29,6 +29,8 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    [self showPlaceholder];
+    [self showWaiter];
     
     self.ref = [[FIRDatabase database] reference];
     
@@ -36,9 +38,6 @@
     [self setupNavigationBar];
     [self setupData];
 }
-
-//Добавить метод, который отправляет в БД тип ленты в зависимости от выбранного контрола (при выборе)
-//В меню добавить метод, который вытаскивает тип ленты из БД и в зависимости от него открывает нужный контроллер
 
 - (void)setupViews {
     self.eMailLabel.text = @"";
@@ -64,6 +63,8 @@
         } else {
             [self.newsFeedSegmentedControl setSelectedSegmentIndex:1];
         }
+        [self hideWaiter];
+        [self hidePlaceholder];
         
     } withCancelBlock:^(NSError * _Nonnull error) {
         NSLog(@"%@", error.localizedDescription);

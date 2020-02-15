@@ -8,10 +8,11 @@
 
 #import <UIKit/UIKit.h>
 #import "User.h"
+#import "BaseViewController.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface Menu : UIViewController
+@interface Menu : BaseViewController
 
 @end
 

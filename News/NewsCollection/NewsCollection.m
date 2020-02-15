@@ -114,7 +114,7 @@
 
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath{
     
-    CGFloat cellHeight = (self.collectionView.frame.size.height - self.topContentInset - self.bottomContentInset - self.galleryMinimumLineSpacing-70)/2;
+    CGFloat cellHeight = (self.collectionView.frame.size.height - self.topContentInset - self.bottomContentInset - self.galleryMinimumLineSpacing)/2;
     CGFloat cellWidth = (self.collectionView.frame.size.width - self.leftContentInset - self.rightContentInset - self.galleryMinimumLineSpacing)/1.5;
     
     return CGSizeMake(cellWidth, cellHeight);

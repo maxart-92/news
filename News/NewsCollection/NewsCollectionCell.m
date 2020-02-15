@@ -33,6 +33,8 @@
     self.layer.shadowRadius = 6;
     self.layer.shadowOpacity = 0.3;
     self.layer.shadowOffset = CGSizeMake(3, 5);
+    self.layer.borderColor = [UIColor blackColor].CGColor;
+    self.layer.borderWidth = 1;
     
     self.clipsToBounds = false;
     

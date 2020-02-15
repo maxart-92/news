@@ -95,33 +95,33 @@
 }
 
 - (IBAction)businessButtonPressed:(UIButton *)sender {
-    [self openNewsList:0];
+    [self openNews:0];
 }
 - (IBAction)wallStreetButtonPressed:(UIButton *)sender {
-    [self openNewsList:1];
+    [self openNews:1];
 }
 - (IBAction)techCrunchButtonPressed:(UIButton *)sender {
-    [self openNewsList:2];
+    [self openNews:2];
 }
 
 - (IBAction)bitcoinButtonPressed:(UIButton *)sender {
-    [self openNewsList:3];
+    [self openNews:3];
 }
 
 - (IBAction)appleButtonPressed:(UIButton *)sender {
-    [self openNewsList:4];
+    [self openNews:4];
 }
 
-- (void)openNewsList:(int)index{
+- (void)openNews:(int)index{
     if ([self.currentUser.newsFeedMode isEqualToString:@"list"]){
-        UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"NewsList" bundle:nil];
+        UIStoryboard *storyboard = [UIStoryboard storyboardWithName:NSStringFromClass([NewsList class]) bundle:nil];
         NewsList *newsList = (NewsList *)[storyboard instantiateViewControllerWithIdentifier:NSStringFromClass([NewsList class])];
         newsList.newsListTitle = [self.newsTypes[index] objectForKey:@"type"];
         newsList.url = [self.newsTypes[index] objectForKey:@"url"];
         [self.navigationController pushViewController:newsList animated:YES];
     }
     else if ([self.currentUser.newsFeedMode isEqualToString:@"tile"]){
-        UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"NewsCollection" bundle:nil];
+        UIStoryboard *storyboard = [UIStoryboard storyboardWithName:NSStringFromClass([NewsCollection class]) bundle:nil];
         NewsCollection *newsList = (NewsCollection *)[storyboard instantiateViewControllerWithIdentifier:NSStringFromClass([NewsCollection class])];
         newsList.newsCollectionTitle = [self.newsTypes[index] objectForKey:@"type"];
         newsList.url = [self.newsTypes[index] objectForKey:@"url"];
@@ -140,7 +140,7 @@
 }
 
 - (IBAction)settingsBarButton:(UIBarButtonItem *)sender {
-    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Settings" bundle:nil];
+    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:NSStringFromClass([Settings class]) bundle:nil];
     Settings *settings = (Settings *)[storyboard instantiateViewControllerWithIdentifier:NSStringFromClass([Settings class])];
     settings.settingsTitle = NSStringFromClass([Settings class]);
     [self.navigationController pushViewController:settings animated:YES];
