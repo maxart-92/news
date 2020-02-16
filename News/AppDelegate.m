@@ -8,6 +8,7 @@
 
 #import "AppDelegate.h"
 #import <Firebase/Firebase.h>
+#import "Container.h"
 
 @import Firebase;
 
@@ -20,6 +21,12 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     [FIRApp configure];
+    
+    /*
+    self.window = [[UIWindow alloc] initWithFrame:UIScreen.mainScreen.bounds];
+    [self.window makeKeyAndVisible];
+    self.window.rootViewController = [[Container alloc] init];
+    */
     
     return YES;
 }

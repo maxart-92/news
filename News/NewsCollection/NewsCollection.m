@@ -10,9 +10,10 @@
 #import "NewsModel.h"
 #import "NewsCollectionCell.h"
 #import <AFNetworking/AFNetworking.h>
+#import "SafariServices/SafariServices.h"
 #import "PureLayout.h"
 
-@interface NewsCollection () <UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout>
+@interface NewsCollection () <UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, SFSafariViewControllerDelegate>
 
 @property (strong, nonatomic) UICollectionView *collectionView;
 
@@ -112,6 +113,20 @@
     return cell;
 }
 
+- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
+    
+    if (self.newsList[indexPath.row].url != (NSString*)[NSNull null]){
+        SFSafariViewController *svc = [[SFSafariViewController alloc] initWithURL:[NSURL URLWithString:self.newsList[indexPath.row].url]];
+        svc.delegate = self;
+        [self presentViewController:svc animated:true completion:nil];
+    }
+    
+}
+
+- (void)safariViewControllerDidFinish:(SFSafariViewController *)controller{
+    [self dismissViewControllerAnimated:true completion:nil];
+}
+
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath{
     
     CGFloat cellHeight = (self.collectionView.frame.size.height - self.topContentInset - self.bottomContentInset - self.galleryMinimumLineSpacing)/2;
@@ -119,7 +134,6 @@
     
     return CGSizeMake(cellWidth, cellHeight);
 }
-
 
 #pragma mark - Data
 
@@ -137,7 +151,6 @@
         
         if (error) {
             NSLog(@"Error: %@", error);
-            //[self showBasicErrorAlert:@"Something wrong with connection. Internet access is required for the application to work"];
             [self showBasicErrorAlert:error.localizedDescription];
             [self hideWaiter];
             

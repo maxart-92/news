@@ -7,6 +7,7 @@
 //
 
 #import "AuthorisationViewController.h"
+#import "Container.h"
 #import "Menu.h"
 //#import "User.h"
 #import <Firebase/Firebase.h>
@@ -128,9 +129,16 @@
 }
 
 - (void) goToMenu{
+    
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Menu" bundle:nil];
     Menu *menu = (Menu *)[storyboard instantiateViewControllerWithIdentifier:NSStringFromClass([Menu class])];
     [self showViewController:menu sender:nil];
+    
+    /*
+    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Container" bundle:nil];
+    Container *menu = (Container *)[storyboard instantiateViewControllerWithIdentifier:NSStringFromClass([Container class])];
+    [self showViewController:menu sender:nil];
+     */
 }
 
 @end

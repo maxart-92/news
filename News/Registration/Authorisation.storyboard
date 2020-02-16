@@ -13,7 +13,7 @@
         <!--Authorisation View Controller-->
         <scene sceneID="gWk-Rj-6uu">
             <objects>
-                <viewController storyboardIdentifier="Registration" useStoryboardIdentifierAsRestorationIdentifier="YES" id="aC9-RH-799" customClass="AuthorisationViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="Authorisation" useStoryboardIdentifierAsRestorationIdentifier="YES" id="aC9-RH-799" customClass="AuthorisationViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="SqQ-bF-EGr">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>

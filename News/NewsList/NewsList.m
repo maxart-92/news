@@ -199,7 +199,6 @@
         
         if (error) {
             NSLog(@"Error: %@", error);
-            //[self showBasicErrorAlert:@"Something wrong with connection. Internet access is required for the application to work"];
             [self showBasicErrorAlert:error.localizedDescription];
             [self hideWaiter];
             
@@ -271,7 +270,7 @@
 
 - (void) loadData{
     self.newsList = [NSMutableArray new];
-    self.newsList = [[NetworkManager fetchData] copy];
+    self.newsList = [NetworkManager fetchData];
     
     //NSLog(@"%@ News Title AAAAAAAAAAAAAAAAAAAAAAABBAAAAAAAqwewcfdsdvdgffdgfdgdgdgdfd",self.newsList[1].title);
     //NSLog(@"%d News Count AAAABBBCCCDDDEEE",(int)self.newsList.count);

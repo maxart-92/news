@@ -162,4 +162,9 @@
     self.currentUser.newsFeedMode = notification.object;
 }
 
+- (IBAction)openSideBar:(UIBarButtonItem *)sender {
+    [self.delegate toggleSidebar];
+}
+
+
 @end

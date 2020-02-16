@@ -17,9 +17,7 @@
 
 @implementation NetworkManager
 
-+ (NSMutableArray *) fetchData{
-    
-    NSMutableArray *newsList = [NSMutableArray new];
++ (NSMutableArray<NewsModel *> *) fetchData{
     
     NSURLSessionConfiguration *configuration = [NSURLSessionConfiguration defaultSessionConfiguration];
     AFURLSessionManager *manager = [[AFURLSessionManager alloc] initWithSessionConfiguration:configuration];
@@ -27,15 +25,14 @@
     NSURL *URL = [NSURL URLWithString:@"https://newsapi.org/v2/top-headlines?country=us&category=business&apiKey=f67e648fe5aa474d9f346ddd1cabdda0"];
     NSURLRequest *request = [NSURLRequest requestWithURL:URL];
     
+    NSMutableArray<NewsModel *> *newsList = [NSMutableArray<NewsModel *> new];
+    
     NSURLSessionDataTask *dataTask = [manager dataTaskWithRequest:request completionHandler:^(NSURLResponse *response, id responseObject, NSError *error) {
-        
-        NSLog(@"%d News Count",(int)newsList.count);
         
         if (error) {
             NSLog(@"Error: %@", error);
         } else {
             NSLog(@"%@ %@", response, responseObject);
-            
             NSArray *News = [responseObject valueForKey:@"articles"];
             //[self setupModel];
             
@@ -55,7 +52,7 @@
         }
     }];
     [dataTask resume];
-    //NSLog(@"%d News Count AAAABBBCCCDDDEEE",(int)newsList.count);
+    NSLog(@"%d News Count AAAABBBCCCDDDEEE",(int)newsList.count);
     //NSLog(@"%@ News Title AAAAAAAAAAAAAAAAAAAAAAABBAAAAAAAqwewcfdsdvdgffdgfdgdgdgdfd", newsList[1].title);
     return newsList;
 }

@@ -12,7 +12,15 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+@protocol MenuDelegate <NSObject>
+
+- (void)toggleSidebar;
+
+@end
+
 @interface Menu : BaseViewController
+
+@property (weak, nonatomic) id<MenuDelegate> delegate;
 
 @end
 

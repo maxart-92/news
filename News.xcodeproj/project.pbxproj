@@ -25,6 +25,9 @@
 		67E2811823F5592700B7DFE4 /* NewsCollection.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 67E2811723F5592700B7DFE4 /* NewsCollection.storyboard */; };
 		67E2811F23F567FC00B7DFE4 /* NewsCollectionCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 67E2811D23F567FC00B7DFE4 /* NewsCollectionCell.m */; };
 		67E2812023F567FC00B7DFE4 /* NewsCollectionCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 67E2811E23F567FC00B7DFE4 /* NewsCollectionCell.xib */; };
+		67E2812423F82C4700B7DFE4 /* Container.m in Sources */ = {isa = PBXBuildFile; fileRef = 67E2812323F82C4700B7DFE4 /* Container.m */; };
+		67E2812723F82C5800B7DFE4 /* Sidebar.m in Sources */ = {isa = PBXBuildFile; fileRef = 67E2812623F82C5800B7DFE4 /* Sidebar.m */; };
+		67E2812923F86E7F00B7DFE4 /* Container.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 67E2812823F86E7F00B7DFE4 /* Container.storyboard */; };
 		C2D38CF923E2CE6E00E69AFD /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = C2D38CF823E2CE6E00E69AFD /* AppDelegate.m */; };
 		C2D38D0123E2CE7000E69AFD /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C2D38D0023E2CE7000E69AFD /* Assets.xcassets */; };
 		C2D38D0423E2CE7000E69AFD /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C2D38D0223E2CE7000E69AFD /* LaunchScreen.storyboard */; };
@@ -69,6 +72,11 @@
 		67E2811C23F567FC00B7DFE4 /* NewsCollectionCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NewsCollectionCell.h; sourceTree = "<group>"; };
 		67E2811D23F567FC00B7DFE4 /* NewsCollectionCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NewsCollectionCell.m; sourceTree = "<group>"; };
 		67E2811E23F567FC00B7DFE4 /* NewsCollectionCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NewsCollectionCell.xib; sourceTree = "<group>"; };
+		67E2812223F82C4700B7DFE4 /* Container.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Container.h; sourceTree = "<group>"; };
+		67E2812323F82C4700B7DFE4 /* Container.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Container.m; sourceTree = "<group>"; };
+		67E2812523F82C5800B7DFE4 /* Sidebar.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Sidebar.h; sourceTree = "<group>"; };
+		67E2812623F82C5800B7DFE4 /* Sidebar.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Sidebar.m; sourceTree = "<group>"; };
+		67E2812823F86E7F00B7DFE4 /* Container.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Container.storyboard; sourceTree = "<group>"; };
 		C2D38CF423E2CE6E00E69AFD /* News.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = News.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C2D38CF723E2CE6E00E69AFD /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		C2D38CF823E2CE6E00E69AFD /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -177,6 +185,19 @@
 			path = NewsCollection;
 			sourceTree = "<group>";
 		};
+		67E2812123F82B9400B7DFE4 /* Sidebar */ = {
+			isa = PBXGroup;
+			children = (
+				67E2812223F82C4700B7DFE4 /* Container.h */,
+				67E2812323F82C4700B7DFE4 /* Container.m */,
+				67E2812523F82C5800B7DFE4 /* Sidebar.h */,
+				67E2812623F82C5800B7DFE4 /* Sidebar.m */,
+				67E2812823F86E7F00B7DFE4 /* Container.storyboard */,
+			);
+			name = Sidebar;
+			path = "New Group1";
+			sourceTree = "<group>";
+		};
 		6849C0F53220AB50F218CA15 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -206,6 +227,7 @@
 		C2D38CF623E2CE6E00E69AFD /* News */ = {
 			isa = PBXGroup;
 			children = (
+				67E2812123F82B9400B7DFE4 /* Sidebar */,
 				676B62DE23EECCF600CE81B5 /* Registration */,
 				672F205823E8154C00911C28 /* Menu */,
 				6765746023F18A7E002B306B /* Settings */,
@@ -331,6 +353,7 @@
 				6765746523F18ACB002B306B /* Settings.storyboard in Resources */,
 				67E2812023F567FC00B7DFE4 /* NewsCollectionCell.xib in Resources */,
 				C2D38D1623E2D12400E69AFD /* NewsList.storyboard in Resources */,
+				67E2812923F86E7F00B7DFE4 /* Container.storyboard in Resources */,
 				676B62DA23EEC57800CE81B5 /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -386,6 +409,7 @@
 			files = (
 				672F205E23E9D07B00911C28 /* Menu.m in Sources */,
 				6765746C23F40187002B306B /* BaseViewController.m in Sources */,
+				67E2812423F82C4700B7DFE4 /* Container.m in Sources */,
 				6765745B23EECD97002B306B /* AuthorisationViewController.m in Sources */,
 				6765746323F18AB0002B306B /* Settings.m in Sources */,
 				67E2811623F5591700B7DFE4 /* NewsCollection.m in Sources */,
@@ -397,6 +421,7 @@
 				672F206323EAFADA00911C28 /* NewsText.m in Sources */,
 				6765746823F191DD002B306B /* User.m in Sources */,
 				C2D38D1323E2D0E800E69AFD /* NewsCell.m in Sources */,
+				67E2812723F82C5800B7DFE4 /* Sidebar.m in Sources */,
 				672F205B23E819F300911C28 /* MenuCell.m in Sources */,
 				C2D38D1A23E2D26000E69AFD /* NewsList.m in Sources */,
 				C2D38D4823E4176F00E69AFD /* NetworkManager.m in Sources */,
